@@ -1,0 +1,198 @@
+<main class="pt-20 md:pt-24 min-h-screen bg-surface-container-lowest">
+  <div class="px-4 md:px-margin-desktop py-6 md:py-8 max-w-container-max mx-auto">
+    <!-- ====================================================================
+         CABECERA DE ADMINISTRACIÓN DE USUARIOS
+         ==================================================================== -->
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-stack-md">
+      <div class="w-full text-center md:text-left">
+        <h1 class="font-display-sm text-[28px] sm:text-display-sm text-secondary uppercase italic tracking-tighter leading-tight">User_Control</h1>
+        <p class="text-on-surface-variant font-label-sm uppercase text-[10px] sm:text-xs">Gestión de Accesos y Perfiles de Cliente</p>
+      </div>
+      
+      <button (click)="openAddModal()" class="w-full md:w-auto flex items-center justify-center gap-2 px-6 md:px-8 py-3 bg-white text-black hover:bg-secondary-fixed transition-all font-label-bold uppercase text-[10px] md:text-xs">
+        <span class="material-symbols-outlined text-sm">person_add</span>
+        Register New User
+      </button>
+    </header>
+
+    <!-- ====================================================================
+         LISTADO DE USUARIOS (TABLA)
+         ==================================================================== -->
+    <section class="glass-panel border border-white/10 overflow-hidden">
+      <div class="">
+        <table class="w-full text-left border-collapse">
+          <thead class="hidden md:table-header-group">
+            <tr class="bg-surface-container border-b border-white/10">
+              <th class="px-6 py-4 font-label-bold text-xs uppercase text-on-surface-variant">Avatar</th>
+              <th class="px-6 py-4 font-label-bold text-xs uppercase text-on-surface-variant">Nombre Completo</th>
+              <th class="px-6 py-4 font-label-bold text-xs uppercase text-on-surface-variant">Rol</th>
+              <th class="px-6 py-4 font-label-bold text-xs uppercase text-on-surface-variant">Teléfono</th>
+              <th class="px-6 py-4 font-label-bold text-xs uppercase text-on-surface-variant">Registro</th>
+              <th class="px-6 py-4 font-label-bold text-xs uppercase text-on-surface-variant">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5 block md:table-row-group">
+            @if (loading()) {
+              <tr class="block md:table-row">
+                <td class="px-6 py-10 text-center block md:table-cell" colspan="6">
+                  <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-secondary-fixed mx-auto"></div>
+                </td>
+              </tr>
+            } @else {
+              @for (user of users(); track user.id) {
+                <tr class="hover:bg-white/[0.02] transition-colors group flex flex-col md:table-row border-b border-white/5 md:border-none p-4 md:p-0">
+                  <!-- Col: Avatar -->
+                  <td class="md:px-6 md:py-4 mb-3 md:mb-0">
+                    <div class="flex items-center gap-4 md:block">
+                      <span class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-24">Avatar:</span>
+                      <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-secondary font-bold text-xs uppercase border border-white/10">
+                        {{ user.nombre.charAt(0) }}{{ user.apellidos.charAt(0) }}
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <!-- Col: Información Personal -->
+                  <td class="md:px-6 md:py-4 mb-2 md:mb-0">
+                    <div class="flex items-start gap-4 md:block">
+                      <span class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-24 pt-1">Usuario:</span>
+                      <div class="min-w-0">
+                        <div class="font-label-bold text-secondary text-sm md:text-base">{{ user.nombre }} {{ user.apellidos }}</div>
+                        <div class="text-[10px] text-on-surface-variant tracking-wider uppercase opacity-60">ID: {{ user.id.substring(0, 8) }}...</div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <!-- Col: Rol -->
+                  <td class="md:px-6 md:py-4 mb-2 md:mb-0">
+                    <div class="flex items-center gap-4 md:block">
+                      <span class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-24">Rol:</span>
+                      <button (click)="toggleRole(user)" 
+                              [class]="user.rol === 'admin' ? 'bg-secondary-fixed text-on-secondary-fixed ring-secondary-fixed/30' : 'bg-surface-container-highest text-on-surface-variant ring-white/5'"
+                              class="px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest ring-1 transition-all hover:scale-105 active:scale-95">
+                        {{ user.rol }}
+                      </button>
+                    </div>
+                  </td>
+                  
+                  <!-- Col: Teléfono -->
+                  <td class="md:px-6 md:py-4 mb-2 md:mb-0">
+                    <div class="flex items-center gap-4 md:block">
+                      <span class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-24">Teléfono:</span>
+                      <span class="font-label-sm text-on-surface-variant text-xs">{{ user.telefono || 'Sin registro' }}</span>
+                    </div>
+                  </td>
+                  
+                  <!-- Col: Fecha -->
+                  <td class="md:px-6 md:py-4 mb-4 md:mb-0">
+                    <div class="flex items-center gap-4 md:block">
+                      <span class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-24">Registro:</span>
+                      <span class="text-[11px] text-on-surface-variant font-medium">{{ user.creado_en | date:'shortDate' }}</span>
+                    </div>
+                  </td>
+                  
+                  <!-- Col: Acciones -->
+                  <td class="md:px-6 md:py-4 border-t border-white/5 md:border-none pt-4 md:pt-0">
+                    <div class="flex justify-end md:justify-start gap-4 md:gap-2">
+                      <button (click)="openEditModal(user)" class="flex items-center gap-2 md:block px-4 py-2 md:p-2 bg-white/5 md:bg-transparent hover:bg-secondary-fixed/10 text-on-surface-variant hover:text-secondary-fixed transition-all rounded">
+                        <span class="material-symbols-outlined text-sm">edit</span>
+                        <span class="md:hidden text-[10px] font-bold uppercase">Editar</span>
+                      </button>
+                      <button (click)="deleteUser(user)" class="flex items-center gap-2 md:block px-4 py-2 md:p-2 bg-white/5 md:bg-transparent hover:bg-error/10 text-on-surface-variant hover:text-error transition-all rounded">
+                        <span class="material-symbols-outlined text-sm">delete</span>
+                        <span class="md:hidden text-[10px] font-bold uppercase">Eliminar</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====================================================================
+       MODAL: REGISTRO DE NUEVO USUARIO
+       ==================================================================== -->
+  @if (showAddModal()) {
+    <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div (click)="closeAddModal()" class="absolute inset-0 bg-background/80 backdrop-blur-sm"></div>
+      <div class="relative glass-panel w-full max-w-md border border-white/20 animate-in fade-in zoom-in duration-300 max-h-[90vh] overflow-y-auto">
+        <header class="p-4 md:p-6 border-b border-white/10 flex justify-between items-center sticky top-0 bg-surface-container-low z-20">
+          <h2 class="font-display-sm text-[20px] md:text-headline-lg text-secondary uppercase italic">Register_New</h2>
+          <button (click)="closeAddModal()" class="material-symbols-outlined hover:text-secondary-fixed">close</button>
+        </header>
+        
+        <form (submit)="$event.preventDefault(); createUser()" class="p-6 space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Name</label>
+              <input [(ngModel)]="newNombre" name="nombre" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="text" required>
+            </div>
+            <div class="space-y-1">
+              <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Last Name</label>
+              <input [(ngModel)]="newApellidos" name="apellidos" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="text" required>
+            </div>
+          </div>
+          
+          <div class="space-y-1">
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Email Address</label>
+            <input [(ngModel)]="newEmail" name="email" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="email" required>
+          </div>
+          
+          <div class="space-y-1">
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Temporary Password</label>
+            <input [(ngModel)]="newPassword" name="password" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="password" required>
+          </div>
+
+          @if (addError()) {
+            <p class="text-error text-[10px] font-bold uppercase">{{ addError() }}</p>
+          }
+
+          <div class="pt-4 flex gap-2">
+            <button (click)="closeAddModal()" type="button" class="flex-1 py-3 border border-white/10 hover:bg-white/5 font-label-bold uppercase text-xs transition-all">Cancel</button>
+            <button [disabled]="addLoading()" type="submit" class="flex-1 py-3 bg-secondary-fixed text-on-secondary-fixed font-label-bold uppercase text-xs transition-all neon-glow">
+              {{ addLoading() ? 'Wait...' : 'Register User' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- ====================================================================
+       MODAL: EDICIÓN DE PERFIL
+       ==================================================================== -->
+  @if (showEditModal()) {
+    <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div (click)="closeEditModal()" class="absolute inset-0 bg-background/80 backdrop-blur-sm"></div>
+      <div class="relative glass-panel w-full max-w-md border border-white/20 animate-in fade-in zoom-in duration-300">
+        <header class="p-6 border-b border-white/10 flex justify-between items-center">
+          <h2 class="font-display-sm text-headline-lg text-secondary uppercase italic">Edit_Profile</h2>
+          <button (click)="closeEditModal()" class="material-symbols-outlined hover:text-secondary-fixed">close</button>
+        </header>
+        
+        <form (submit)="$event.preventDefault(); saveUser()" class="p-6 space-y-4">
+          <div class="space-y-1">
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">First Name</label>
+            <input [(ngModel)]="editNombre" name="edit_nombre" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="text" required>
+          </div>
+          <div class="space-y-1">
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Last Name</label>
+            <input [(ngModel)]="editApellidos" name="edit_apellidos" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="text" required>
+          </div>
+          <div class="space-y-1">
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Phone Number</label>
+            <input [(ngModel)]="editTelefono" name="edit_telefono" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" placeholder="+XX XXXXXXXX" type="text">
+          </div>
+
+          <div class="pt-4 flex gap-2">
+            <button (click)="closeEditModal()" type="button" class="flex-1 py-3 border border-white/10 hover:bg-white/5 font-label-bold uppercase text-xs transition-all">Cancel</button>
+            <button type="submit" class="flex-1 py-3 bg-secondary-fixed text-on-secondary-fixed font-label-bold uppercase text-xs transition-all neon-glow">Update Profile</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</main>

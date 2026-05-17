@@ -1,1 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .neon-glow {
+    transition: all 0.3s ease;
+  }
+  .neon-glow:hover {
+    background-color: #d4ff2a;
+    box-shadow: 0 0 20px rgba(195, 244, 0, 0.4);
+    transform: translateY(-2px);
+  }
+  .hero-gradient {
+    background: linear-gradient(180deg, rgba(18, 20, 20, 0) 0%, rgba(18, 20, 20, 1) 100%);
+  }
+}

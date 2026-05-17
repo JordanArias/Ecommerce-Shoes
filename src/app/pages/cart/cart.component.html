@@ -1,0 +1,107 @@
+<main class="pt-32 pb-stack-lg max-w-container-max mx-auto px-margin-desktop min-h-screen">
+  <!-- ====================================================================
+       CABECERA DEL CARRITO
+       ==================================================================== -->
+  <header class="mb-stack-md">
+    <h1 class="font-display-lg text-display-lg uppercase italic mb-unit">YOUR CART</h1>
+    <p class="text-on-surface-variant font-label-bold">{{ cartService.itemCount() }} ITEMS SELECTED FOR PERFORMANCE</p>
+  </header>
+
+  <div class="flex flex-col lg:grid lg:grid-cols-12 gap-gutter">
+    <!-- ====================================================================
+         LISTADO DE ARTÍCULOS
+         ==================================================================== -->
+    <section class="lg:col-span-8 space-y-gutter">
+      <div class="flex flex-col gap-unit">
+        @if (cartService.items().length === 0) {
+          <!-- Estado: Vacío -->
+          <div class="glass-panel p-unit text-center py-20 text-on-surface-variant">
+            <span class="material-symbols-outlined text-4xl mb-4 opacity-20">shopping_cart_off</span>
+            <p>Tu carrito está vacío.</p>
+            <button routerLink="/products" class="text-secondary-fixed font-bold mt-4 underline">Volver a la tienda</button>
+          </div>
+        } @else {
+          <!-- Items del carrito -->
+          @for (item of cartService.items(); track item.id) {
+            <div class="glass-panel p-unit flex flex-col md:flex-row gap-gutter group transition-all">
+              <!-- Miniatura del producto -->
+              <div class="w-full md:w-48 h-48 bg-surface-container overflow-hidden rounded-DEFAULT flex-shrink-0">
+                <img [alt]="item.name" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105" [src]="item.image">
+              </div>
+
+              <!-- Información y controles -->
+              <div class="flex-grow flex flex-col justify-between py-2">
+                <div class="flex justify-between items-start">
+                  <div class="flex-grow">
+                    <h3 class="font-headline-lg text-headline-lg uppercase italic text-secondary">{{ item.name }}</h3>
+                    <p class="text-on-surface-variant text-xs leading-relaxed mt-2 line-clamp-2 opacity-80 max-w-md">{{ item.descripcion }}</p>
+                  </div>
+                  <div class="text-right ml-4">
+                    <span class="font-display-sm text-headline-lg text-secondary">${{ (item.price * item.quantity).toFixed(2) }}</span>
+                  </div>
+                </div>
+
+                <!-- Controles: Cantidad y Eliminar -->
+                <div class="flex items-center justify-between mt-stack-sm">
+                  <div class="flex items-center bg-surface-container-highest rounded-full px-4 py-2 border border-white/10">
+                    <button (click)="cartService.updateQuantity(item.id, item.quantity - 1)" 
+                            class="material-symbols-outlined text-on-surface-variant hover:text-secondary-fixed text-body-md transition-colors">remove</button>
+                    <span class="mx-6 font-label-bold text-secondary">{{ item.quantity }}</span>
+                    <button (click)="cartService.updateQuantity(item.id, item.quantity + 1)" 
+                            class="material-symbols-outlined text-on-surface-variant hover:text-secondary-fixed text-body-md transition-colors">add</button>
+                  </div>
+                  
+                  <button (click)="cartService.removeFromCart(item.id)" 
+                          class="flex items-center gap-2 text-on-surface-variant hover:text-error transition-colors font-label-bold uppercase text-xs">
+                    <span class="material-symbols-outlined text-body-md">delete</span>
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         RESUMEN DE LA ORDEN (STICKY)
+         ==================================================================== -->
+    <aside class="lg:col-span-4">
+      <div class="glass-panel p-stack-md sticky top-32">
+        <h2 class="font-headline-lg text-headline-lg uppercase italic mb-stack-md border-b border-white/10 pb-4">Order Summary</h2>
+        
+        <!-- Desglose de costos -->
+        <div class="space-y-4 mb-stack-md">
+          <div class="flex justify-between font-label-bold uppercase">
+            <span class="text-on-surface-variant">Subtotal</span>
+            <span class="text-secondary">${{ cartService.subtotal().toFixed(2) }}</span>
+          </div>
+          
+          <div class="border-t border-white/10 pt-4 mt-4">
+            <div class="flex justify-between items-end">
+              <span class="font-display-sm text-display-sm uppercase italic leading-none">Total</span>
+              <span class="font-display-sm text-display-sm text-secondary-fixed leading-none">${{ cartService.total().toFixed(2) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acciones: Checkout via WhatsApp -->
+        <div class="space-y-unit">
+          <button (click)="proceedToWhatsApp()" 
+                  [disabled]="cartService.items().length === 0"
+                  class="block text-center w-full bg-secondary-fixed text-on-secondary-fixed font-label-bold text-[16px] md:text-display-sm py-4 rounded-DEFAULT uppercase transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:grayscale disabled:scale-100 neon-glow">
+            PEDIR POR WHATSAPP
+          </button>
+          
+          <div class="flex items-center justify-center gap-2 mt-4 opacity-50">
+            <span class="material-symbols-outlined text-xs">verified_user</span>
+            <p class="text-center text-on-surface-variant font-label-sm tracking-widest uppercase">
+              SECURE TRANSACTION ENCRYPTED BY LAB_CORE
+            </p>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>

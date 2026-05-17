@@ -1,0 +1,263 @@
+<main class="pt-20">
+  <!-- ====================================================================
+       HERO SECTION
+       ==================================================================== -->
+  <section class="relative h-[65vh] md:h-[85vh] min-h-[500px] w-full overflow-hidden flex items-end pb-8 md:pb-stack-lg">
+    <div class="absolute inset-0 z-0">
+      <img class="w-full h-full object-cover object-center" 
+           alt="SNEAKER_LAB Hero Image"
+           src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsVACbHwj1daNOGlsbaGtxUeh6qHY2YexnMDLGJwbD1RHjLXCVMbkYd4xQ3XDmfh2zHEv_g6VnzyCYtnLNjs5YWmQQzdgsZ_UzUjRnxbWm9EIa2RksQGKQWgaTa3ViBwbH6kJKjRl_GdW7Kqn7-8KG4yZQqtM5ire2pLy_6dmy4vMBSz8XPg061EytKwNty-yJqGwPuZfHk1SJjtbod3NfrIEAuTG4IghdhH80TQJvckeRjYCn8cIr4Gt80enyIM-gl6So5SBEZwE">
+      <div class="absolute inset-0 hero-gradient"></div>
+    </div>
+    
+    <div class="relative z-10 px-4 md:px-margin-desktop max-w-container-max mx-auto w-full">
+      <div class="max-w-2xl">
+        <span class="inline-block px-3 py-1 bg-tertiary-container text-on-tertiary-container font-label-bold text-[10px] sm:text-label-sm uppercase mb-3 md:mb-stack-sm rounded-lg">Limitless Performance</span>
+        <h1 class="font-display-lg text-[28px] sm:text-[40px] md:text-display-lg text-secondary mb-4 md:mb-stack-sm uppercase leading-tight">THE NEXT<br><span class="text-secondary-fixed">EVOLUTION</span></h1>
+        <p class="font-body-lg text-body-sm md:text-body-lg text-on-surface-variant mb-6 md:mb-stack-md max-w-md">Precision engineered for the urban athlete. Experience the fusion of high-fashion aesthetics and ground-breaking athletic technology.</p>
+        
+        <div class="flex flex-col sm:flex-row gap-stack-sm">
+          <button routerLink="/products" class="bg-secondary-fixed text-on-secondary-fixed px-6 py-3 sm:px-10 sm:py-4 font-label-bold text-label-bold uppercase neon-glow hover:translate-x-1 hover:-translate-y-1 transition-transform">New Arrivals</button>
+          <button routerLink="/products" class="border border-secondary text-secondary px-6 py-3 sm:px-10 sm:py-4 font-label-bold text-label-bold uppercase hover:bg-white/10 transition-colors">Collections</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       CURATED SERIES SECTION (Bento Grid)
+       ==================================================================== -->
+  <section class="px-4 md:px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+    <div class="flex justify-between items-end mb-stack-md">
+      <div>
+        <h2 class="font-display-sm text-[24px] sm:text-display-sm text-secondary uppercase">CURATED SERIES</h2>
+        <p class="font-body-md text-body-sm md:text-body-md text-on-surface-variant">Built for every terrain, designed for every move.</p>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-gutter h-auto md:h-[700px]">
+      <!-- Category: RUN -->
+      <div class="md:col-span-8 group relative overflow-hidden rounded-xl border border-white/10 cursor-pointer aspect-[4/3] md:aspect-auto" routerLink="/products">
+        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzkfeNMol1QSSrnTk5UyOFsMkmbaVqrO0srPNhaLabVi96M2fbCamBNEBAveM8vhPRUBoSvo-UvabMTNwx_us14aotauXdxAn83sUS5qcz0nqgt4lxq1iVude2Drhn-a03NFQwsLCXWOl28qHXAS74yvn42_t6fg-8yrw0oCeAozBTENs1t7bwHvv00Rhw4FF3HxNphRAWWFuDlCUwqlvpp-2QPkzadABa37hnNMz2eccdLkk-QpussaRRRxRRaZmPg0cuRUMKWYw">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-6 md:p-stack-md flex flex-col justify-end">
+          <h3 class="font-display-sm text-[24px] sm:text-display-sm text-secondary">RUN</h3>
+          <p class="font-body-md text-body-sm md:text-body-md text-on-surface-variant max-w-xs mb-stack-sm">Engineered for speed, built for endurance. The ultimate runner's kit.</p>
+          <a class="text-secondary-fixed font-label-bold text-[12px] sm:text-label-bold flex items-center gap-2">EXPLORE CATEGORY <span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+      </div>
+      
+      <!-- Category: STREET & SPORT -->
+      <div class="md:col-span-4 flex flex-col gap-4 md:gap-gutter">
+        <div class="h-[250px] md:h-1/2 group relative overflow-hidden rounded-xl border border-white/10 cursor-pointer" routerLink="/products">
+          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZ4DuMta4844UGi26CB_xG6JRzIQcDy7nrXM0IEbwhr5S11cPevSSWAY4nRQNabZWmIRyP_g5Aw-lDfc1Xw0wLxTas-caLhdhTbtkMPqjKdqf79HaiPiCOiRhge3Epj3PzySCMStwa-YO5yXlSpS-YkPCPtBXg-6vcB532BGxgIt0iA3HoaAzL1PiYSyF1prtB5Mxp-7rDOoC_eY9kR7J1R4igVM6HJgh_zj4-LOq6JeSNeI8bRClg87Y4HYAyFh7XkBSULnl1pWM">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 sm:p-stack-sm flex flex-col justify-end">
+            <h3 class="font-display-sm text-headline-lg-mobile sm:text-headline-lg text-secondary">STREET</h3>
+            <a class="text-secondary-fixed font-label-bold text-[10px] sm:text-label-sm flex items-center gap-2">VIEW ALL <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+        </div>
+        <div class="h-[250px] md:h-1/2 group relative overflow-hidden rounded-xl border border-white/10 cursor-pointer" routerLink="/products">
+          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBId8nzTjdC-iT06bwX94XiEapE9XRXsWts9VxA9SHcAezW5Z6FgTfgqENXlBSerGL6qVZ_wXtoR5TjgcVCW1vh0mGvxbUFs9f3a84vLRPPcDCO3PAlqtQnlS1FFxLyRvYRf9WW3cmxux2DNkEaBM2dncdX8pfXfY6Z9LCNlj0gzd2Vw3bmNB69KoYmnWq47x-blXE8rDHbOAz3btJ5MYwLgIly7K8iSIzbA84KBjla4Hqw-q9SoaHcuViDyKvVr8Qf4HQg3QIQqJc">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 sm:p-stack-sm flex flex-col justify-end">
+            <h3 class="font-display-sm text-headline-lg-mobile sm:text-headline-lg text-secondary">SPORT</h3>
+            <a class="text-secondary-fixed font-label-bold text-[10px] sm:text-label-sm flex items-center gap-2">VIEW ALL <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       TRENDING PRODUCTS SECTION
+       ==================================================================== -->
+  <section class="bg-surface-container-lowest py-stack-lg">
+    <div class="px-4 md:px-margin-desktop max-w-container-max mx-auto">
+      <div class="flex justify-between items-end mb-stack-md">
+        <div>
+          <h2 class="font-display-sm text-[24px] sm:text-display-sm text-secondary uppercase">TRENDING NOW</h2>
+          <p class="font-body-md text-body-sm md:text-body-md text-on-surface-variant">The most coveted silhouettes.</p>
+        </div>
+        <button routerLink="/products" class="hidden md:flex items-center gap-2 text-secondary hover:text-secondary-fixed transition-colors">
+          <span class="font-label-bold text-label-bold uppercase">View Collection</span>
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-gutter">
+        @if (loading()) {
+          <!-- Spinner de carga -->
+          <div class="col-span-full flex justify-center py-10">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary-fixed"></div>
+          </div>
+        } @else {
+          <!-- Listado de productos destacados -->
+          @for (product of featuredProducts(); track product.id) {
+            <div class="group flex flex-col cursor-pointer">
+              <div (click)="openDetail(product)" class="relative aspect-square overflow-hidden mb-stack-sm bg-surface-container rounded-lg cursor-pointer group/img">
+                <span class="absolute top-4 left-4 z-10 px-3 py-1 bg-secondary-fixed text-on-secondary-fixed font-label-bold text-[10px] uppercase rounded">Destacado</span>
+                <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" [alt]="product.nombre" [src]="product.imagen_url">
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-stack-sm">
+                  <button (click)="$event.stopPropagation(); addToCart(product)" class="p-4 bg-white text-black rounded-full hover:bg-secondary-fixed transition-colors">
+                    <span class="material-symbols-outlined">shopping_bag</span>
+                  </button>
+                  <button (click)="$event.stopPropagation(); openDetail(product)" class="p-4 bg-white/10 backdrop-blur-md text-white rounded-full border border-white/20 hover:bg-white/20 transition-colors">
+                    <span class="material-symbols-outlined">visibility</span>
+                  </button>
+                </div>
+              </div>
+              <div (click)="openDetail(product)" class="glass-card p-3 md:p-4 flex flex-col gap-1 cursor-pointer group/title">
+                <span class="font-label-sm text-[9px] md:text-label-sm text-on-surface-variant uppercase tracking-widest">{{ $any(product.categorias)?.nombre || 'Categoría' }}</span>
+                <h4 class="font-headline-lg text-[12px] md:text-body-lg text-secondary font-bold leading-tight break-words group-hover/title:text-secondary-fixed transition-colors">{{ product.nombre }}</h4>
+                <p class="text-on-surface-variant text-[10px] md:text-xs leading-relaxed line-clamp-2 opacity-70">{{ product.descripcion }}</p>
+                <p class="font-label-bold text-label-bold text-secondary-fixed mt-1 md:mt-2">${{ product.precio.toFixed(2) }}</p>
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       NEW ARRIVALS SECTION
+       ==================================================================== -->
+  <section class="py-stack-lg">
+    <div class="px-4 md:px-margin-desktop max-w-container-max mx-auto">
+      <div class="flex justify-between items-end mb-stack-md">
+        <div>
+          <h2 class="font-display-sm text-[24px] sm:text-display-sm text-secondary uppercase">NEW ARRIVALS</h2>
+          <p class="font-body-md text-body-sm md:text-body-md text-on-surface-variant">Latest additions to our catalog.</p>
+        </div>
+        <button routerLink="/products" class="hidden md:flex items-center gap-2 text-secondary hover:text-secondary-fixed transition-colors">
+          <span class="font-label-bold text-label-bold uppercase">See All</span>
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-gutter">
+        @if (loading()) {
+          <div class="col-span-full flex justify-center py-10">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary-fixed"></div>
+          </div>
+        } @else if (latestProducts().length === 0) {
+          <div class="col-span-full text-on-surface-variant text-center py-10">
+            <p>No hay más productos nuevos por ahora.</p>
+          </div>
+        } @else {
+          <!-- Listado de novedades -->
+          @for (product of latestProducts(); track product.id) {
+            <div class="group flex flex-col cursor-pointer">
+              <div (click)="openDetail(product)" class="relative aspect-square overflow-hidden mb-stack-sm bg-surface-container rounded-lg cursor-pointer group/img">
+                <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" [alt]="product.nombre" [src]="product.imagen_url">
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-stack-sm">
+                  <button (click)="$event.stopPropagation(); addToCart(product)" class="p-4 bg-white text-black rounded-full hover:bg-secondary-fixed transition-colors">
+                    <span class="material-symbols-outlined">shopping_bag</span>
+                  </button>
+                  <button (click)="$event.stopPropagation(); openDetail(product)" class="p-4 bg-white/10 backdrop-blur-md text-white rounded-full border border-white/20 hover:bg-white/20 transition-colors">
+                    <span class="material-symbols-outlined">visibility</span>
+                  </button>
+                </div>
+              </div>
+              <div (click)="openDetail(product)" class="glass-card p-3 md:p-4 flex flex-col gap-1 cursor-pointer group/title">
+                <span class="font-label-sm text-[9px] md:text-label-sm text-on-surface-variant uppercase tracking-widest">{{ $any(product.categorias)?.nombre || 'Categoría' }}</span>
+                <h4 class="font-headline-lg text-[12px] md:text-body-lg text-secondary font-bold leading-tight break-words group-hover/title:text-secondary-fixed transition-colors">{{ product.nombre }}</h4>
+                <p class="text-on-surface-variant text-[10px] md:text-xs leading-relaxed line-clamp-2 opacity-70">{{ product.descripcion }}</p>
+                <p class="font-label-bold text-label-bold text-secondary-fixed mt-1 md:mt-2">${{ product.precio.toFixed(2) }}</p>
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       COMMUNITY SECTION
+       ==================================================================== -->
+  <section class="px-4 md:px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+    <div class="relative glass-card p-6 sm:p-12 md:p-24 overflow-hidden rounded-xl">
+      <div class="absolute -right-20 -top-20 w-96 h-96 bg-secondary-fixed/10 blur-[120px] rounded-full"></div>
+      <div class="relative z-10 max-w-xl">
+        <h2 class="font-display-sm text-[24px] sm:text-headline-lg md:text-display-sm text-secondary uppercase mb-4 md:mb-stack-sm">JOIN THE<br><span class="text-secondary-fixed">LAB COMMUNITY</span></h2>
+        <p class="font-body-md text-body-sm md:text-body-md text-on-surface-variant mb-6 md:mb-stack-md">Be the first to access exclusive drops, private community events, and early release calendar updates.</p>
+        <form class="flex flex-col sm:flex-row gap-4">
+          <input class="flex-grow bg-surface-container border border-white/10 text-secondary p-4 focus:ring-0 focus:border-secondary-fixed transition-colors" placeholder="ENTER YOUR EMAIL" type="email">
+          <button class="bg-secondary text-background font-label-bold text-label-bold px-10 py-4 uppercase hover:bg-secondary-fixed transition-colors">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ====================================================================
+     MODAL DE DETALLE DE PRODUCTO (Premium Design)
+     ==================================================================== -->
+@if (showDetailModal() && selectedProduct()) {
+  <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-20">
+    <!-- Backdrop -->
+    <div (click)="closeDetail()" 
+         class="absolute inset-0 bg-background/80 backdrop-blur-md animate-in fade-in duration-300"></div>
+    
+    <!-- Modal Content -->
+    <div class="relative glass-panel w-full max-w-5xl border border-white/20 animate-in zoom-in-95 slide-in-from-bottom-10 duration-500 overflow-hidden rounded-2xl flex flex-col md:flex-row max-h-[90vh]">
+      
+      <!-- Botón Cerrar (Móvil) -->
+      <button (click)="closeDetail()" class="absolute top-4 right-4 z-20 md:hidden bg-black/40 text-white rounded-full p-2">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+
+      <!-- Imagen del Producto (Izquierda) -->
+      <div class="w-full md:w-1/2 h-64 sm:h-80 md:h-auto bg-surface-container-highest overflow-hidden">
+        <img [alt]="selectedProduct()!.nombre" 
+             class="w-full h-full object-cover animate-in zoom-in-110 duration-1000"
+             [src]="selectedProduct()!.imagen_url">
+      </div>
+
+      <!-- Información (Derecha) -->
+      <div class="w-full md:w-1/2 p-4 sm:p-6 md:p-12 overflow-y-auto flex flex-col bg-surface-container-low">
+        <div class="mb-auto">
+          <div class="flex justify-between items-start mb-4">
+            <span class="px-3 py-1 bg-secondary-fixed/10 text-secondary-fixed border border-secondary-fixed/20 font-label-bold text-[10px] uppercase tracking-widest rounded">
+              {{ $any(selectedProduct()!.categorias)?.nombre || 'Categoría' }}
+            </span>
+            <button (click)="closeDetail()" class="hidden md:block text-on-surface-variant hover:text-secondary-fixed transition-colors">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+
+          <h2 class="font-display-lg text-[20px] sm:text-[28px] md:text-display-sm text-secondary uppercase italic leading-tight mb-2 tracking-tighter">
+            {{ selectedProduct()!.nombre }}
+          </h2>
+
+          <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4">
+            <span class="font-display-sm text-[24px] sm:text-display-sm text-secondary-fixed leading-none">
+              ${{ selectedProduct()!.precio.toFixed(2) }}
+            </span>
+            <div class="hidden sm:block h-4 w-px bg-white/20"></div>
+            <span class="text-on-surface-variant font-label-bold text-[10px] uppercase tracking-widest opacity-60">
+              In Stock / Limited Edition
+            </span>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h4 class="font-label-bold text-[10px] uppercase text-on-surface-variant mb-2 tracking-widest">Description</h4>
+              <p class="text-on-surface-variant text-sm md:text-base leading-relaxed opacity-80 whitespace-pre-line">
+                {{ selectedProduct()!.descripcion }}
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Acciones Inferiores -->
+        <div class="pt-8 mt-auto">
+          <button (click)="addToCart(selectedProduct()!); closeDetail()" 
+                  class="w-full bg-secondary-fixed text-on-secondary-fixed font-label-bold text-label-bold uppercase py-4 rounded-DEFAULT transition-all neon-glow flex items-center justify-center gap-3 active:scale-95">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            Add to Lab Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

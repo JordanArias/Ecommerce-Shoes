@@ -1,0 +1,15 @@
+<!-- Layout Principal de la Aplicación -->
+<div class="app-container min-h-screen flex flex-col bg-background text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+  
+  <!-- Navegación Global -->
+  <app-navbar></app-navbar>
+
+  <!-- Área de Contenido Dinámico (Rutas) -->
+  <div class="flex-grow">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- Pie de Página Global -->
+  <app-footer></app-footer>
+
+</div>

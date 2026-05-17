@@ -1,0 +1,62 @@
+<main class="min-h-screen flex items-center justify-center px-4 md:p-margin-desktop relative overflow-hidden">
+  <div class="absolute -top-24 -left-24 w-96 h-96 bg-secondary-fixed/5 blur-[120px] rounded-full"></div>
+  <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-secondary-fixed/5 blur-[120px] rounded-full"></div>
+
+  <div class="w-full max-w-md relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div class="glass-panel p-6 sm:p-8 md:p-12 border border-white/10 shadow-2xl">
+      <header class="text-center mb-10">
+        <h1 class="font-display-sm text-[28px] sm:text-display-sm text-secondary uppercase italic tracking-tighter leading-tight">Login_Lab</h1>
+        <p class="text-on-surface-variant font-label-sm uppercase tracking-widest mt-2 text-[10px] sm:text-xs">Access your elite performance gear</p>
+      </header>
+
+      <form (submit)="onSubmit($event)" class="space-y-6">
+        <div class="space-y-2">
+          <label class="font-label-bold text-[10px] uppercase text-on-surface-variant tracking-widest">Email Address</label>
+          <div class="relative flex items-center group">
+            <span class="material-symbols-outlined absolute left-4 text-on-surface-variant group-focus-within:text-secondary-fixed transition-colors pointer-events-none">mail</span>
+            <input [(ngModel)]="email" 
+                   name="email" 
+                   class="w-full bg-surface-container border border-white/10 pl-12 pr-4 py-4 text-sm text-secondary placeholder:text-on-surface-variant focus:border-secondary-fixed outline-none transition-all" 
+                   placeholder="lab@performance.com" 
+                   type="email" 
+                   required>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="font-label-bold text-[10px] uppercase text-on-surface-variant tracking-widest">Security Key</label>
+          <div class="relative flex items-center group">
+            <span class="material-symbols-outlined absolute left-4 text-on-surface-variant group-focus-within:text-secondary-fixed transition-colors pointer-events-none">lock</span>
+            <input [(ngModel)]="password" 
+                   name="password" 
+                   class="w-full bg-surface-container border border-white/10 pl-12 pr-4 py-4 text-sm text-secondary placeholder:text-on-surface-variant focus:border-secondary-fixed outline-none transition-all" 
+                   placeholder="••••••••" 
+                   type="password" 
+                   required>
+          </div>
+        </div>
+
+        @if (error()) {
+          <div class="p-4 bg-error/10 border border-error/20 flex gap-3 items-center animate-in fade-in zoom-in duration-300">
+            <span class="material-symbols-outlined text-error text-lg">error</span>
+            <p class="text-error text-xs font-bold uppercase">{{ error() }}</p>
+          </div>
+        }
+
+        <div class="pt-4">
+          <button [disabled]="loading()" 
+                  class="w-full bg-secondary-fixed text-on-secondary-fixed py-4 font-display-sm text-lg sm:text-headline-lg uppercase italic transition-all active:scale-95 neon-glow disabled:opacity-50 disabled:scale-100" 
+                  type="submit">
+            {{ loading() ? 'AUTHENTICATING...' : 'SIGN IN' }}
+          </button>
+        </div>
+      </form>
+
+      <footer class="mt-8 pt-8 border-t border-white/5 text-center">
+        <p class="text-on-surface-variant text-[10px] uppercase tracking-widest">
+          SNEAKER_LAB SECURE ACCESS NODE
+        </p>
+      </footer>
+    </div>
+  </div>
+</main>
