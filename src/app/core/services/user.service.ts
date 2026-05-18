@@ -65,9 +65,7 @@ export class UserService {
    */
   public async deleteUser(id: string): Promise<boolean> {
     const { error } = await this._supabase.client
-      .from('usuarios')
-      .delete()
-      .eq('id', id);
+      .rpc('delete_user_admin', { target_user_id: id });
       
     if (error) throw error;
     return true;

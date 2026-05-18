@@ -7,6 +7,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { AppUser } from '../../core/models/user.model';
+import { createClient } from '@supabase/supabase-js';
+import { environment } from '../../../environments/environment';
 
 /**
  * Componente administrativo para la gestión de usuarios.
@@ -77,9 +79,9 @@ export class AdminUsersComponent implements OnInit {
       try {
         await this._userService.updateUserRole(user.id, newRole);
         await this._loadUsers();
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error al actualizar rol:', error);
-        alert('Error al actualizar el rol del usuario');
+        alert('Error al actualizar el rol del usuario: ' + (error.message || JSON.stringify(error)));
       }
     }
   }
@@ -102,12 +104,32 @@ export class AdminUsersComponent implements OnInit {
   /**
    * Registra un nuevo usuario directamente desde el panel administrativo.
    */
-  public async createUser(): Promise<void> {
+    public async createUser(): Promise<void> {
     try {
       this.addLoading.set(true);
       this.addError.set(null);
 
-      const { error } = await this._supabase.client.auth.signUp({
+      const emailValue = this.newEmail().trim().toLowerCase();
+      if (!emailValue.endsWith('@gmail.com')) {
+        throw new Error('Solo se permiten registrar cuentas de @gmail.com');
+      }
+
+      const passValue = this.newPassword();
+      if (passValue.length < 6) {
+        throw new Error('La contraseña debe tener al menos 6 caracteres');
+      }
+
+      // Usamos un cliente temporal sin persistencia para crear el usuario
+      // Esto evita que el administrador actual cierre su sesión accidentalmente
+      const tempClient = createClient(environment.supabaseUrl, environment.supabaseKey, {
+        auth: {
+          persistSession: false,
+          autoRefreshToken: false,
+          detectSessionInUrl: false
+        }
+      });
+
+      const { error } = await tempClient.auth.signUp({
         email: this.newEmail(),
         password: this.newPassword(),
         options: {
@@ -159,9 +181,9 @@ export class AdminUsersComponent implements OnInit {
       });
       this.closeEditModal();
       await this._loadUsers();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error al actualizar usuario:', error);
-      alert('Error al actualizar los datos del usuario');
+      alert('Error al actualizar los datos del usuario: ' + (error.message || JSON.stringify(error)));
     }
   }
 
@@ -175,9 +197,9 @@ export class AdminUsersComponent implements OnInit {
       try {
         await this._userService.deleteUser(user.id);
         await this._loadUsers();
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error al eliminar usuario:', error);
-        alert('Error al eliminar el usuario');
+        alert('Error al eliminar el usuario: ' + (error.message || JSON.stringify(error)));
       }
     }
   }

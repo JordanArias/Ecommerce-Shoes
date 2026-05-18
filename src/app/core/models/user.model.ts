@@ -3,6 +3,7 @@
  */
 export interface AppUser {
   id: string;
+  email?: string;
   nombre: string;
   apellidos: string;
   rol: 'admin' | 'cliente';

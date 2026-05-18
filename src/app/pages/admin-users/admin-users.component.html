@@ -57,7 +57,8 @@
                       <span class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-24 pt-1">Usuario:</span>
                       <div class="min-w-0">
                         <div class="font-label-bold text-secondary text-sm md:text-base">{{ user.nombre }} {{ user.apellidos }}</div>
-                        <div class="text-[10px] text-on-surface-variant tracking-wider uppercase opacity-60">ID: {{ user.id.substring(0, 8) }}...</div>
+                        <div class="text-xs text-on-surface-variant mt-0.5">{{ user.email || 'Sin correo registrado' }}</div>
+                        <div class="text-[9px] text-on-surface-variant tracking-wider uppercase opacity-50 mt-1">ID: {{ user.id.substring(0, 8) }}...</div>
                       </div>
                     </div>
                   </td>
@@ -137,13 +138,13 @@
           </div>
           
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Email Address</label>
-            <input [(ngModel)]="newEmail" name="email" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="email" required>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Email Address (Gmail)</label>
+            <input [(ngModel)]="newEmail" name="email" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="email" placeholder="ejemplo@gmail.com" required>
           </div>
           
           <div class="space-y-1">
             <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Temporary Password</label>
-            <input [(ngModel)]="newPassword" name="password" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="password" required>
+            <input [(ngModel)]="newPassword" name="password" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="password" minlength="6" required>
           </div>
 
           @if (addError()) {

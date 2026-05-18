@@ -83,12 +83,16 @@ export class AuthService {
     
     if (error) throw error;
     
-    // Verificar rol del usuario para redirección
-    const { data: userData } = await this._supabase.client
+    // Verificar rol del usuario para redirección, usando maybeSingle para no lanzar error si falta el perfil
+    const { data: userData, error: roleError } = await this._supabase.client
       .from('usuarios')
       .select('rol')
       .eq('id', data.user.id)
-      .single();
+      .maybeSingle();
+      
+    if (roleError) {
+      console.warn('Error fetching user role on login:', roleError);
+    }
       
     this._redirectBasedOnRole(userData?.rol);
     
