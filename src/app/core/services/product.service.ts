@@ -98,8 +98,7 @@ export class ProductService {
       .from('productos')
       .select('*, categorias(nombre)')
       .eq('estado', 'activo')
-      .eq('destacado', true)
-      .limit(4);
+      .eq('destacado', true);
     
     if (error) throw error;
     return data || [];
