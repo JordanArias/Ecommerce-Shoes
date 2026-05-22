@@ -12,11 +12,11 @@
       <div class="flex gap-2 w-full md:w-auto">
         <button (click)="openCategoryModal()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 md:px-6 py-3 border border-white/10 hover:bg-white/5 transition-all font-label-bold uppercase text-[10px] md:text-xs">
           <span class="material-symbols-outlined text-sm">category</span>
-          Categories
+          Categorías
         </button>
         <button (click)="openModal()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 md:px-6 py-3 bg-secondary-fixed text-on-secondary-fixed hover:bg-secondary-fixed-dim transition-all font-label-bold uppercase text-[10px] md:text-xs neon-glow">
           <span class="material-symbols-outlined text-sm">add</span>
-          New Product
+          Nuevo Producto
         </button>
       </div>
     </header>
@@ -121,7 +121,7 @@
       <div class="relative glass-panel w-full max-w-2xl border border-white/20 animate-in fade-in zoom-in duration-300 max-h-[90vh] overflow-y-auto">
         <header class="p-4 md:p-6 border-b border-white/10 flex justify-between items-center sticky top-0 bg-surface-container-low z-20">
           <h2 class="font-display-sm text-[20px] md:text-headline-lg text-secondary uppercase italic">
-            {{ isEditing() ? 'Edit_Product' : 'New_Product' }}
+            {{ isEditing() ? 'Editar_Producto' : 'Nuevo_Producto' }}
           </h2>
           <button (click)="closeModal()" class="material-symbols-outlined hover:text-secondary-fixed">close</button>
         </header>
@@ -129,31 +129,31 @@
         <form (submit)="$event.preventDefault(); saveProduct()" class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Campo: Nombre -->
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Product Name</label>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Nombre del Producto</label>
             <input [(ngModel)]="currentProduct().nombre" name="nombre" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all" type="text" required>
           </div>
           
           <!-- Campo: Precio -->
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Price (USD)</label>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Precio (USD)</label>
             <input [(ngModel)]="currentProduct().precio" name="precio" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all" type="number" step="0.01" required>
           </div>
           
           <!-- Campo: Descripción (Full Width) -->
           <div class="md:col-span-2 space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Description</label>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Descripción</label>
             <textarea [(ngModel)]="currentProduct().descripcion" name="descripcion" rows="3" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all resize-none"></textarea>
           </div>
           
           <!-- Campo: Imagen URL -->
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Image URL</label>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">URL de la Imagen</label>
             <input [(ngModel)]="currentProduct().imagen_url" name="imagen_url" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all" type="text">
           </div>
           
           <!-- Campo: Categoría -->
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Category</label>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Categoría</label>
             <select [(ngModel)]="currentProduct().categoria_id" name="categoria_id" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all appearance-none">
               @for (cat of categories(); track cat.id) {
                 <option [value]="cat.id">{{ cat.nombre }}</option>
@@ -163,7 +163,7 @@
           
           <!-- Campo: Estado -->
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Status</label>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Estado</label>
             <select [(ngModel)]="currentProduct().estado" name="estado" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all appearance-none">
               <option value="activo">Activo</option>
               <option value="inactivo">Inactivo</option>
@@ -173,14 +173,14 @@
           <!-- Campo: Destacado (Checkbox Custom) -->
           <div class="flex items-center gap-3 py-2">
             <input [(ngModel)]="currentProduct().destacado" name="destacado" id="destacado-check" class="w-4 h-4 accent-secondary-fixed" type="checkbox">
-            <label for="destacado-check" class="font-label-bold text-[10px] uppercase text-on-surface-variant cursor-pointer">Featured Product</label>
+            <label for="destacado-check" class="font-label-bold text-[10px] uppercase text-on-surface-variant cursor-pointer">Producto Destacado</label>
           </div>
 
           <!-- Acciones del Modal -->
           <div class="md:col-span-2 pt-4 flex gap-2">
-            <button (click)="closeModal()" type="button" class="flex-1 py-3 border border-white/10 hover:bg-white/5 font-label-bold uppercase text-xs transition-all">Cancel</button>
+            <button (click)="closeModal()" type="button" class="flex-1 py-3 border border-white/10 hover:bg-white/5 font-label-bold uppercase text-xs transition-all">Cancelar</button>
             <button type="submit" class="flex-1 py-3 bg-secondary-fixed text-on-secondary-fixed font-label-bold uppercase text-xs transition-all neon-glow">
-              {{ isEditing() ? 'Update Product' : 'Create Product' }}
+              {{ isEditing() ? 'Actualizar Producto' : 'Crear Producto' }}
             </button>
           </div>
         </form>
@@ -196,7 +196,7 @@
       <div (click)="closeCategoryModal()" class="absolute inset-0 bg-background/80 backdrop-blur-sm"></div>
       <div class="relative glass-panel w-full max-w-md border border-white/20 animate-in fade-in slide-in-from-bottom-4 duration-300 max-h-[90vh] overflow-y-auto">
         <header class="p-4 md:p-6 border-b border-white/10 flex justify-between items-center sticky top-0 bg-surface-container-low z-20">
-          <h2 class="font-display-sm text-[20px] md:text-headline-lg text-secondary uppercase italic">Categories_Lab</h2>
+          <h2 class="font-display-sm text-[20px] md:text-headline-lg text-secondary uppercase italic">Categorías_Lab</h2>
           <button (click)="closeCategoryModal()" class="material-symbols-outlined hover:text-secondary-fixed">close</button>
         </header>
 
@@ -204,11 +204,11 @@
           <!-- Formulario Nueva Categoría (Stack en móvil) -->
           <div class="space-y-4">
             <div class="space-y-1">
-              <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">New Category Name</label>
+              <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Nombre de la Nueva Categoría</label>
               <div class="flex flex-col sm:flex-row gap-2">
-                <input [(ngModel)]="newCatName" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" placeholder="Ex: Running, Skate..." type="text">
+                <input [(ngModel)]="newCatName" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" placeholder="Ej: Running, Skate..." type="text">
                 <button (click)="addCategory()" [disabled]="!newCatName()" class="w-full sm:w-auto px-6 py-3 sm:py-0 bg-white text-black font-label-bold uppercase text-[10px] hover:bg-secondary-fixed transition-all disabled:opacity-50 flex-shrink-0">
-                  Add
+                  Agregar
                 </button>
               </div>
             </div>
@@ -216,7 +216,7 @@
 
           <!-- Lista de Categorías Existentes -->
           <div class="space-y-3">
-            <h3 class="font-label-bold text-[10px] uppercase text-on-surface-variant border-b border-white/10 pb-2">Existing Categories</h3>
+            <h3 class="font-label-bold text-[10px] uppercase text-on-surface-variant border-b border-white/10 pb-2">Categorías Existentes</h3>
             <div class="grid grid-cols-1 gap-2">
               @for (cat of categories(); track cat.id) {
                 <div class="flex justify-between items-center p-3 bg-surface-container rounded border border-white/5 group gap-2">

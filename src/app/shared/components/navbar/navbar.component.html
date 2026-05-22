@@ -36,14 +36,14 @@
          routerLinkActive="text-secondary-fixed font-bold border-b-2 border-secondary-fixed pb-0.5" 
          [routerLinkActiveOptions]="{exact: false}" 
          class="font-display-sm text-[10px] md:text-label-bold uppercase tracking-tighter text-on-surface-variant hover:text-secondary transition-colors whitespace-nowrap">
-        Products
+        Productos
       </a>
       
       @if (authService.userRole() === 'admin' || authService.userRole() === 'cliente') {
         <a routerLink="/admin/products" 
            routerLinkActive="text-secondary-fixed font-bold border-b-2 border-secondary-fixed pb-0.5" 
            class="font-display-sm text-[10px] md:text-label-bold uppercase tracking-tighter text-on-surface-variant hover:text-secondary transition-colors whitespace-nowrap">
-          Inventory
+          Inventario
         </a>
       }
 
@@ -51,7 +51,7 @@
         <a routerLink="/admin/users" 
            routerLinkActive="text-secondary-fixed font-bold border-b-2 border-secondary-fixed pb-0.5" 
            class="font-display-sm text-[10px] md:text-label-bold uppercase tracking-tighter text-on-surface-variant hover:text-secondary transition-colors whitespace-nowrap">
-          Users
+          Usuarios
         </a>
       }
     </div>

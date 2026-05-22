@@ -11,7 +11,7 @@
       
       <button (click)="openAddModal()" class="w-full md:w-auto flex items-center justify-center gap-2 px-6 md:px-8 py-3 bg-white text-black hover:bg-secondary-fixed transition-all font-label-bold uppercase text-[10px] md:text-xs">
         <span class="material-symbols-outlined text-sm">person_add</span>
-        Register New User
+        Registrar Nuevo Usuario
       </button>
     </header>
 
@@ -121,29 +121,29 @@
       <div (click)="closeAddModal()" class="absolute inset-0 bg-background/80 backdrop-blur-sm"></div>
       <div class="relative glass-panel w-full max-w-md border border-white/20 animate-in fade-in zoom-in duration-300 max-h-[90vh] overflow-y-auto">
         <header class="p-4 md:p-6 border-b border-white/10 flex justify-between items-center sticky top-0 bg-surface-container-low z-20">
-          <h2 class="font-display-sm text-[20px] md:text-headline-lg text-secondary uppercase italic">Register_New</h2>
+          <h2 class="font-display-sm text-[20px] md:text-headline-lg text-secondary uppercase italic">Registrar_Nuevo</h2>
           <button (click)="closeAddModal()" class="material-symbols-outlined hover:text-secondary-fixed">close</button>
         </header>
         
         <form (submit)="$event.preventDefault(); createUser()" class="p-6 space-y-4">
           <div class="grid grid-cols-2 gap-4">
             <div class="space-y-1">
-              <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Name</label>
+              <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Nombre</label>
               <input [(ngModel)]="newNombre" name="nombre" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="text" required>
             </div>
             <div class="space-y-1">
-              <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Last Name</label>
+              <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Apellido</label>
               <input [(ngModel)]="newApellidos" name="apellidos" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="text" required>
             </div>
           </div>
           
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Email Address (Gmail)</label>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Correo Electrónico (Gmail)</label>
             <input [(ngModel)]="newEmail" name="email" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="email" placeholder="ejemplo@gmail.com" required>
           </div>
           
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Temporary Password</label>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Contraseña Temporal</label>
             <input [(ngModel)]="newPassword" name="password" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="password" minlength="6" required>
           </div>
 
@@ -152,9 +152,9 @@
           }
 
           <div class="pt-4 flex gap-2">
-            <button (click)="closeAddModal()" type="button" class="flex-1 py-3 border border-white/10 hover:bg-white/5 font-label-bold uppercase text-xs transition-all">Cancel</button>
+            <button (click)="closeAddModal()" type="button" class="flex-1 py-3 border border-white/10 hover:bg-white/5 font-label-bold uppercase text-xs transition-all">Cancelar</button>
             <button [disabled]="addLoading()" type="submit" class="flex-1 py-3 bg-secondary-fixed text-on-secondary-fixed font-label-bold uppercase text-xs transition-all neon-glow">
-              {{ addLoading() ? 'Wait...' : 'Register User' }}
+              {{ addLoading() ? 'Espere...' : 'Registrar Usuario' }}
             </button>
           </div>
         </form>
@@ -170,27 +170,27 @@
       <div (click)="closeEditModal()" class="absolute inset-0 bg-background/80 backdrop-blur-sm"></div>
       <div class="relative glass-panel w-full max-w-md border border-white/20 animate-in fade-in zoom-in duration-300">
         <header class="p-6 border-b border-white/10 flex justify-between items-center">
-          <h2 class="font-display-sm text-headline-lg text-secondary uppercase italic">Edit_Profile</h2>
+          <h2 class="font-display-sm text-headline-lg text-secondary uppercase italic">Editar_Perfil</h2>
           <button (click)="closeEditModal()" class="material-symbols-outlined hover:text-secondary-fixed">close</button>
         </header>
         
         <form (submit)="$event.preventDefault(); saveUser()" class="p-6 space-y-4">
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">First Name</label>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Nombre</label>
             <input [(ngModel)]="editNombre" name="edit_nombre" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="text" required>
           </div>
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Last Name</label>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Apellido</label>
             <input [(ngModel)]="editApellidos" name="edit_apellidos" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" type="text" required>
           </div>
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Phone Number</label>
+            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Número de Teléfono</label>
             <input [(ngModel)]="editTelefono" name="edit_telefono" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none" placeholder="+XX XXXXXXXX" type="text">
           </div>
 
           <div class="pt-4 flex gap-2">
-            <button (click)="closeEditModal()" type="button" class="flex-1 py-3 border border-white/10 hover:bg-white/5 font-label-bold uppercase text-xs transition-all">Cancel</button>
-            <button type="submit" class="flex-1 py-3 bg-secondary-fixed text-on-secondary-fixed font-label-bold uppercase text-xs transition-all neon-glow">Update Profile</button>
+            <button (click)="closeEditModal()" type="button" class="flex-1 py-3 border border-white/10 hover:bg-white/5 font-label-bold uppercase text-xs transition-all">Cancelar</button>
+            <button type="submit" class="flex-1 py-3 bg-secondary-fixed text-on-secondary-fixed font-label-bold uppercase text-xs transition-all neon-glow">Actualizar Perfil</button>
           </div>
         </form>
       </div>
