@@ -91,7 +91,7 @@
         } @else {
           <!-- Listado de productos destacados -->
           @for (product of featuredProducts(); track product.id) {
-            <div class="group flex flex-col cursor-pointer">
+            <div class="group flex flex-col h-full cursor-pointer">
               <div (click)="openDetail(product)" class="relative aspect-square overflow-hidden mb-stack-sm bg-surface-container rounded-lg cursor-pointer group/img">
                 <span class="absolute top-4 left-4 z-10 px-3 py-1 bg-secondary-fixed text-on-secondary-fixed font-label-bold text-[10px] uppercase rounded">Destacado</span>
                 <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" [alt]="product.nombre" [src]="product.imagen_url">
@@ -104,11 +104,11 @@
                   </button>
                 </div>
               </div>
-              <div (click)="openDetail(product)" class="glass-card p-3 md:p-4 flex flex-col gap-1 cursor-pointer group/title">
+              <div (click)="openDetail(product)" class="glass-card p-3 md:p-4 flex flex-col flex-grow gap-1 cursor-pointer group/title">
                 <span class="font-label-sm text-[9px] md:text-label-sm text-on-surface-variant uppercase tracking-widest">{{ $any(product.categorias)?.nombre || 'Categoría' }}</span>
                 <h4 class="font-headline-lg text-[12px] md:text-body-lg text-secondary font-bold leading-tight break-words group-hover/title:text-secondary-fixed transition-colors">{{ product.nombre }}</h4>
                 <p class="text-on-surface-variant text-[10px] md:text-xs leading-relaxed line-clamp-2 opacity-70">{{ product.descripcion }}</p>
-                <p class="font-label-bold text-label-bold text-secondary-fixed mt-1 md:mt-2">${{ product.precio.toFixed(2) }}</p>
+                <p class="font-label-bold text-label-bold text-secondary-fixed mt-auto pt-2">${{ product.precio.toFixed(2) }}</p>
               </div>
             </div>
           }
@@ -145,7 +145,7 @@
         } @else {
           <!-- Listado de novedades -->
           @for (product of latestProducts(); track product.id) {
-            <div class="group flex flex-col cursor-pointer">
+            <div class="group flex flex-col h-full cursor-pointer">
               <div (click)="openDetail(product)" class="relative aspect-square overflow-hidden mb-stack-sm bg-surface-container rounded-lg cursor-pointer group/img">
                 <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" [alt]="product.nombre" [src]="product.imagen_url">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-stack-sm">
@@ -157,11 +157,11 @@
                   </button>
                 </div>
               </div>
-              <div (click)="openDetail(product)" class="glass-card p-3 md:p-4 flex flex-col gap-1 cursor-pointer group/title">
+              <div (click)="openDetail(product)" class="glass-card p-3 md:p-4 flex flex-col flex-grow gap-1 cursor-pointer group/title">
                 <span class="font-label-sm text-[9px] md:text-label-sm text-on-surface-variant uppercase tracking-widest">{{ $any(product.categorias)?.nombre || 'Categoría' }}</span>
                 <h4 class="font-headline-lg text-[12px] md:text-body-lg text-secondary font-bold leading-tight break-words group-hover/title:text-secondary-fixed transition-colors">{{ product.nombre }}</h4>
                 <p class="text-on-surface-variant text-[10px] md:text-xs leading-relaxed line-clamp-2 opacity-70">{{ product.descripcion }}</p>
-                <p class="font-label-bold text-label-bold text-secondary-fixed mt-1 md:mt-2">${{ product.precio.toFixed(2) }}</p>
+                <p class="font-label-bold text-label-bold text-secondary-fixed mt-auto pt-2">${{ product.precio.toFixed(2) }}</p>
               </div>
             </div>
           }
