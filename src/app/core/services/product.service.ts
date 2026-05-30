@@ -22,7 +22,7 @@ export class ProductService {
       .select('*, categorias(nombre)')
       .eq('estado', 'activo')
       .order('creado_en', { ascending: false });
-    
+
     if (error) throw error;
     return data || [];
   }
@@ -36,7 +36,7 @@ export class ProductService {
       .from('productos')
       .select('*, categorias(nombre)')
       .order('creado_en', { ascending: false });
-    
+
     if (error) throw error;
     return data || [];
   }
@@ -51,7 +51,7 @@ export class ProductService {
       .insert([product])
       .select()
       .single();
-      
+
     if (error) throw error;
     return data;
   }
@@ -71,7 +71,7 @@ export class ProductService {
       .eq('id', id)
       .select()
       .single();
-      
+
     if (error) throw error;
     return data;
   }
@@ -85,7 +85,7 @@ export class ProductService {
       .from('productos')
       .delete()
       .eq('id', id);
-      
+
     if (error) throw error;
     return true;
   }
@@ -99,7 +99,7 @@ export class ProductService {
       .select('*, categorias(nombre)')
       .eq('estado', 'activo')
       .eq('destacado', true);
-    
+
     if (error) throw error;
     return data || [];
   }
@@ -113,7 +113,7 @@ export class ProductService {
       .select('*, categorias(nombre)')
       .eq('id', id)
       .single();
-    
+
     if (error) throw error;
     return data;
   }
@@ -127,8 +127,52 @@ export class ProductService {
       .from('producto_variantes')
       .select('*')
       .eq('producto_id', productId);
-    
+
     if (error) throw error;
     return data || [];
+  }
+
+
+  public async uploadProductImage(file: File): Promise<string> {
+
+    const fileName = `${Date.now()}-${file.name}`;
+
+    const { error } = await this._supabase.client.storage
+      .from('shoes_imagenes')
+      .upload(fileName, file);
+
+    if (error) throw error;
+
+    const { data } = this._supabase.client.storage
+      .from('shoes_imagenes')
+      .getPublicUrl(fileName);
+
+    return data.publicUrl;
+  }
+
+  /**
+   * Elimina la imagen del storage a partir de su URL.
+   * @param imageUrl URL pública de la imagen en Supabase
+   */
+  public async deleteProductImage(imageUrl: string): Promise<void> {
+    if (!imageUrl) return;
+    
+    // Usar la clase URL para parsear la ruta de forma segura y evitar query parameters o hashes
+    const url = new URL(imageUrl);
+    const urlParts = url.pathname.split('/');
+    const fileName = decodeURIComponent(urlParts[urlParts.length - 1]);
+
+    console.log('Intentando eliminar imagen de Storage con nombre:', fileName);
+
+    const { data, error } = await this._supabase.client.storage
+      .from('shoes_imagenes')
+      .remove([fileName]);
+
+    if (error) {
+      console.error('Error al eliminar la imagen en Supabase Storage:', error.message);
+      throw error;
+    }
+    
+    console.log('Imagen eliminada exitosamente del storage:', data);
   }
 }
