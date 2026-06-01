@@ -154,7 +154,7 @@ export class AdminProductsComponent implements OnInit {
         console.log('Iniciando eliminación del producto con ID:', id);
         const productToDelete = this.products().find(p => String(p.id) === String(id));
         console.log('Producto a eliminar encontrado:', productToDelete);
-        
+
         await this._productService.deleteProduct(id);
 
         // Eliminar la imagen del storage si el producto tenía una

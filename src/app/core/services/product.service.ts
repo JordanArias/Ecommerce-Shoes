@@ -157,20 +157,32 @@ export class ProductService {
   public async deleteProductImage(imageUrl: string): Promise<void> {
     if (!imageUrl) return;
     
-    // Usar la clase URL para parsear la ruta de forma segura y evitar query parameters o hashes
-    const url = new URL(imageUrl);
-    const urlParts = url.pathname.split('/');
-    const fileName = decodeURIComponent(urlParts[urlParts.length - 1]);
+    // Extraer la ruta de la imagen después del nombre del bucket 'shoes_imagenes'
+    const bucketName = 'shoes_imagenes';
+    const urlParts = imageUrl.split(`/${bucketName}/`);
+    
+    if (urlParts.length < 2) {
+      console.warn('URL de imagen no válida para el bucket:', imageUrl);
+      return;
+    }
 
-    console.log('Intentando eliminar imagen de Storage con nombre:', fileName);
+    // El nombre del archivo o ruta completa dentro del bucket (decodificando espacios y quitando query params)
+    const fileName = decodeURIComponent(urlParts[1].split('?')[0]); 
+
+    console.log('Intentando eliminar imagen de Storage con nombre exacto:', fileName);
 
     const { data, error } = await this._supabase.client.storage
-      .from('shoes_imagenes')
+      .from(bucketName)
       .remove([fileName]);
 
     if (error) {
       console.error('Error al eliminar la imagen en Supabase Storage:', error.message);
       throw error;
+    }
+
+    if (data && data.length === 0) {
+      console.warn('Supabase no devolvió error, pero tampoco eliminó el archivo. Revisa las políticas RLS del bucket.');
+      throw new Error('El archivo no pudo ser eliminado. Posible fallo de permisos RLS en Supabase.');
     }
     
     console.log('Imagen eliminada exitosamente del storage:', data);
