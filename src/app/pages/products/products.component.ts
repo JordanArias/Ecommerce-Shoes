@@ -1,6 +1,7 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 // Core
 import { ProductService } from '../../core/services/product.service';
@@ -24,6 +25,7 @@ export class ProductsComponent implements OnInit {
   private _productService = inject(ProductService);
   private _categoryService = inject(CategoryService);
   private _cartService = inject(CartService);
+  private _route = inject(ActivatedRoute);
   
   // --- Estado de Datos ---
   /** Lista completa de productos activos */
@@ -48,6 +50,8 @@ export class ProductsComponent implements OnInit {
   public showDetailModal = signal(false);
   /** Almacena el producto seleccionado para mostrar en el modal */
   public selectedProduct = signal<Product | null>(null);
+  /** Imagen activa en la vista previa del modal */
+  public activeModalImage = signal<string>('');
 
   /**
    * Signal computado que aplica los filtros activos sobre la lista de productos.
@@ -83,6 +87,11 @@ export class ProductsComponent implements OnInit {
 
   // --- Ciclo de Vida ---
   ngOnInit(): void {
+    this._route.queryParams.subscribe(params => {
+      if (params['category']) {
+        this.selectedCategory.set(params['category']);
+      }
+    });
     this._loadInitialData();
   }
 
@@ -125,7 +134,30 @@ export class ProductsComponent implements OnInit {
    */
   public openDetail(product: Product): void {
     this.selectedProduct.set(product);
+    this.activeModalImage.set(product.imagen_url);
     this.showDetailModal.set(true);
+  }
+
+  /**
+   * Cambia la imagen principal mostrada en el modal.
+   */
+  public setActiveModalImage(url: string): void {
+    this.activeModalImage.set(url);
+  }
+
+  /**
+   * Obtiene la lista completa de imágenes (portada + secundarias) para la galería.
+   */
+  public getAllProductImages(product: Product | null): string[] {
+    if (!product) return [];
+    const list: string[] = [];
+    if (product.imagen_url) list.push(product.imagen_url);
+    if (product.imagenes && Array.isArray(product.imagenes)) {
+      for (const img of product.imagenes) {
+        if (img && !list.includes(img)) list.push(img);
+      }
+    }
+    return list;
   }
 
   /**
@@ -133,7 +165,10 @@ export class ProductsComponent implements OnInit {
    */
   public closeDetail(): void {
     this.showDetailModal.set(false);
-    setTimeout(() => this.selectedProduct.set(null), 300); // Pequeño delay para la animación de cierre
+    setTimeout(() => {
+      this.selectedProduct.set(null);
+      this.activeModalImage.set('');
+    }, 300); // Pequeño delay para la animación de cierre
   }
 
   /**

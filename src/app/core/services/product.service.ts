@@ -151,6 +151,16 @@ export class ProductService {
   }
 
   /**
+   * Sube múltiples imágenes a Supabase Storage y retorna el array de URLs públicas.
+   * @param files Lista de archivos File seleccionados.
+   */
+  public async uploadMultipleProductImages(files: File[]): Promise<string[]> {
+    if (!files || files.length === 0) return [];
+    const uploadPromises = files.map(file => this.uploadProductImage(file));
+    return Promise.all(uploadPromises);
+  }
+
+  /**
    * Elimina la imagen del storage a partir de su URL.
    * @param imageUrl URL pública de la imagen en Supabase
    */

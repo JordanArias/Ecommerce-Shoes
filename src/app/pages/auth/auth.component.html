@@ -1,35 +1,39 @@
-<main class="min-h-screen flex items-center justify-center px-4 md:p-margin-desktop relative overflow-hidden">
-  <div class="absolute -top-24 -left-24 w-96 h-96 bg-secondary-fixed/5 blur-[120px] rounded-full"></div>
-  <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-secondary-fixed/5 blur-[120px] rounded-full"></div>
+<main class="min-h-screen flex items-center justify-center px-4 md:p-margin-desktop relative overflow-hidden bg-background">
+  <div class="absolute -top-24 -left-24 w-96 h-96 bg-secondary-fixed/5 blur-[120px] rounded-full pointer-events-none"></div>
+  <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-secondary-fixed/5 blur-[120px] rounded-full pointer-events-none"></div>
 
   <div class="w-full max-w-md relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-    <div class="glass-panel p-6 sm:p-8 md:p-12 border border-white/10 shadow-2xl">
-      <header class="text-center mb-10">
-        <h1 class="font-display-sm text-[28px] sm:text-display-sm text-secondary uppercase italic tracking-tighter leading-tight">Login_Lab</h1>
-        <p class="text-on-surface-variant font-label-sm uppercase tracking-widest mt-2 text-[10px] sm:text-xs">Accede a tu equipamiento de rendimiento de élite</p>
+    <div class="bg-white p-6 sm:p-8 md:p-10 border border-outline-variant shadow-xl rounded-2xl">
+      <header class="text-center mb-8">
+        <h1 class="font-display-sm text-[26px] sm:text-display-sm text-secondary uppercase italic tracking-tight leading-tight">
+          Acceso Corporativo
+        </h1>
+        <p class="text-on-surface-variant font-label-sm uppercase tracking-wider mt-2 text-xs">
+          Ingresa a tu panel de administración o cuenta de cliente
+        </p>
       </header>
 
-      <form (submit)="onSubmit($event)" class="space-y-6">
-        <div class="space-y-2">
-          <label class="font-label-bold text-[10px] uppercase text-on-surface-variant tracking-widest">Correo Electrónico</label>
+      <form (submit)="onSubmit($event)" class="space-y-5">
+        <div class="space-y-1.5">
+          <label class="font-label-bold text-xs uppercase text-slate-700 tracking-wider">Correo Electrónico</label>
           <div class="relative flex items-center group">
-            <span class="material-symbols-outlined absolute left-4 text-on-surface-variant group-focus-within:text-secondary-fixed transition-colors pointer-events-none">mail</span>
+            <span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant group-focus-within:text-secondary-fixed transition-colors pointer-events-none text-xl">mail</span>
             <input [(ngModel)]="email" 
                    name="email" 
-                   class="w-full bg-surface-container border border-white/10 pl-12 pr-4 py-4 text-sm text-secondary placeholder:text-on-surface-variant focus:border-secondary-fixed outline-none transition-all" 
-                   placeholder="lab@rendimiento.com" 
+                   class="w-full bg-white border border-outline-variant pl-11 pr-4 py-3 text-sm text-secondary placeholder:text-slate-400 focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed outline-none transition-all rounded" 
+                   placeholder="correo@empresa.com" 
                    type="email" 
                    required>
           </div>
         </div>
 
-        <div class="space-y-2">
-          <label class="font-label-bold text-[10px] uppercase text-on-surface-variant tracking-widest">Clave de Seguridad</label>
+        <div class="space-y-1.5">
+          <label class="font-label-bold text-xs uppercase text-slate-700 tracking-wider">Contraseña</label>
           <div class="relative flex items-center group">
-            <span class="material-symbols-outlined absolute left-4 text-on-surface-variant group-focus-within:text-secondary-fixed transition-colors pointer-events-none">lock</span>
+            <span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant group-focus-within:text-secondary-fixed transition-colors pointer-events-none text-xl">lock</span>
             <input [(ngModel)]="password" 
                    name="password" 
-                   class="w-full bg-surface-container border border-white/10 pl-12 pr-4 py-4 text-sm text-secondary placeholder:text-on-surface-variant focus:border-secondary-fixed outline-none transition-all" 
+                   class="w-full bg-white border border-outline-variant pl-11 pr-4 py-3 text-sm text-secondary placeholder:text-slate-400 focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed outline-none transition-all rounded" 
                    placeholder="••••••••" 
                    type="password" 
                    required>
@@ -37,24 +41,24 @@
         </div>
 
         @if (error()) {
-          <div class="p-4 bg-error/10 border border-error/20 flex gap-3 items-center animate-in fade-in zoom-in duration-300">
+          <div class="p-3 bg-red-50 border border-red-200 rounded flex gap-2.5 items-center animate-in fade-in zoom-in duration-300">
             <span class="material-symbols-outlined text-error text-lg">error</span>
-            <p class="text-error text-xs font-bold uppercase">{{ error() }}</p>
+            <p class="text-error text-xs font-semibold">{{ error() }}</p>
           </div>
         }
 
-        <div class="pt-4">
+        <div class="pt-2">
           <button [disabled]="loading()" 
-                  class="w-full bg-secondary-fixed text-on-secondary-fixed py-4 font-display-sm text-lg sm:text-headline-lg uppercase italic transition-all active:scale-95 neon-glow disabled:opacity-50 disabled:scale-100" 
+                  class="w-full bg-secondary-fixed hover:bg-secondary-fixed-dim text-white py-3.5 font-label-bold uppercase text-sm tracking-wider transition-all rounded shadow-md active:scale-98 disabled:opacity-50 disabled:scale-100" 
                   type="submit">
             {{ loading() ? 'AUTENTICANDO...' : 'INICIAR SESIÓN' }}
           </button>
         </div>
       </form>
 
-      <footer class="mt-8 pt-8 border-t border-white/5 text-center">
-        <p class="text-on-surface-variant text-[10px] uppercase tracking-widest">
-          NODO DE ACCESO SEGURO SNEAKER_LAB
+      <footer class="mt-8 pt-6 border-t border-outline-variant text-center">
+        <p class="text-on-surface-variant text-[11px] tracking-wide">
+          SISTEMA SEGURO SNEAKER_LAB CORP
         </p>
       </footer>
     </div>

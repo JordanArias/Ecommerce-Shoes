@@ -19,6 +19,7 @@ export interface Product {
   imagen_url: string;
   estado: string;
   destacado: boolean;
+  imagenes?: string[]; // Galería de imágenes adicionales
   categorias?: { nombre: string }; // Relación con categorías
 }
 

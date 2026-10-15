@@ -1,25 +1,25 @@
-<main class="pt-20 md:pt-24 min-h-screen bg-surface-container-lowest">
+<main class="pt-20 md:pt-24 min-h-screen bg-background">
   <div class="px-4 md:px-margin-desktop py-6 md:py-8 max-w-container-max mx-auto">
     <!-- ====================================================================
          HEADER Y ACCIONES DE ADMIN
          ==================================================================== -->
     <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-stack-md">
       <div class="w-full text-center md:text-left">
-        <h1
-          class="font-display-sm text-[28px] sm:text-display-sm text-secondary uppercase italic tracking-tighter leading-tight">
-          Admin_Dashboard</h1>
-        <p class="text-on-surface-variant font-label-sm text-[10px] sm:text-xs">GESTIÓN DE INVENTARIO Y CATEGORÍAS</p>
+        <h1 class="font-display-sm text-[28px] sm:text-display-sm text-secondary uppercase italic tracking-tight leading-tight">
+          Panel de Inventario
+        </h1>
+        <p class="text-on-surface-variant font-label-sm text-[11px] sm:text-xs tracking-wider">GESTIÓN CENTRALIZADA DE PRODUCTOS Y CATEGORÍAS</p>
       </div>
 
-      <div class="flex gap-2 w-full md:w-auto">
+      <div class="flex gap-3 w-full md:w-auto">
         <button (click)="openCategoryModal()"
-          class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 md:px-6 py-3 border border-white/10 hover:bg-white/5 transition-all font-label-bold uppercase text-[10px] md:text-xs">
-          <span class="material-symbols-outlined text-sm">category</span>
+          class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 md:px-6 py-2.5 border border-outline-variant bg-white text-secondary hover:bg-surface-container transition-all font-label-bold uppercase text-[11px] md:text-xs rounded shadow-sm">
+          <span class="material-symbols-outlined text-base">category</span>
           Categorías
         </button>
         <button (click)="openModal()"
-          class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 md:px-6 py-3 bg-secondary-fixed text-on-secondary-fixed hover:bg-secondary-fixed-dim transition-all font-label-bold uppercase text-[10px] md:text-xs neon-glow">
-          <span class="material-symbols-outlined text-sm">add</span>
+          class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 md:px-6 py-2.5 bg-secondary-fixed text-white hover:bg-secondary-fixed-dim transition-all font-label-bold uppercase text-[11px] md:text-xs rounded shadow-sm">
+          <span class="material-symbols-outlined text-base">add</span>
           Nuevo Producto
         </button>
       </div>
@@ -28,11 +28,11 @@
     <!-- ====================================================================
          CONTENIDO PRINCIPAL (TABLA DE PRODUCTOS)
          ==================================================================== -->
-    <section class="glass-panel border border-white/10 overflow-hidden">
-      <div class="">
+    <section class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead class="hidden md:table-header-group">
-            <tr class="bg-surface-container border-b border-white/10">
+            <tr class="bg-slate-50 border-b border-outline-variant">
               <th class="px-6 py-4 font-label-bold text-xs uppercase text-on-surface-variant">Imagen</th>
               <th class="px-6 py-4 font-label-bold text-xs uppercase text-on-surface-variant">Producto</th>
               <th class="px-6 py-4 font-label-bold text-xs uppercase text-on-surface-variant">Categoría</th>
@@ -41,46 +41,40 @@
               <th class="px-6 py-4 font-label-bold text-xs uppercase text-on-surface-variant">Acciones</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-white/5 block md:table-row-group">
+          <tbody class="divide-y divide-outline-variant block md:table-row-group">
             @if (loading()) {
             <tr class="block md:table-row">
               <td class="px-6 py-10 text-center block md:table-cell" colspan="6">
-                <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-secondary-fixed mx-auto"></div>
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary-fixed mx-auto"></div>
               </td>
             </tr>
             } @else {
             @for (product of products(); track product.id) {
-            <tr
-              class="hover:bg-white/[0.02] transition-colors group flex flex-col md:table-row border-b border-white/5 md:border-none p-4 md:p-0">
+            <tr class="hover:bg-slate-50/80 transition-colors group flex flex-col md:table-row border-b border-outline-variant md:border-none p-4 md:p-0">
               <!-- Col: Imagen -->
               <td class="md:px-6 md:py-4 mb-3 md:mb-0">
                 <div class="flex items-center gap-4 md:block">
-                  <span
-                    class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-20">Imagen:</span>
+                  <span class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-20">Imagen:</span>
                   <img [src]="product.imagen_url"
-                    class="w-16 h-16 md:w-12 md:h-12 object-cover rounded border border-white/10"
+                    class="w-16 h-16 md:w-12 md:h-12 object-cover rounded-md border border-outline-variant shadow-sm"
                     [alt]="product.nombre">
                 </div>
               </td>
               <!-- Col: Nombre -->
               <td class="md:px-6 md:py-4 mb-2 md:mb-0">
                 <div class="flex items-start gap-4 md:block">
-                  <span
-                    class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-20 pt-1">Producto:</span>
+                  <span class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-20 pt-1">Producto:</span>
                   <div class="min-w-0">
                     <div class="font-label-bold text-secondary text-sm md:text-base">{{ product.nombre }}</div>
-                    <div class="text-[10px] text-on-surface-variant line-clamp-1 md:max-w-[200px]">{{
-                      product.descripcion }}</div>
+                    <div class="text-[11px] text-on-surface-variant line-clamp-1 md:max-w-[220px]">{{ product.descripcion }}</div>
                   </div>
                 </div>
               </td>
               <!-- Col: Categoría -->
               <td class="md:px-6 md:py-4 mb-2 md:mb-0">
                 <div class="flex items-center gap-4 md:block">
-                  <span
-                    class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-20">Categoría:</span>
-                  <span
-                    class="px-2 py-1 bg-surface-container-highest text-on-surface-variant rounded text-[10px] font-bold uppercase tracking-widest">
+                  <span class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-20">Categoría:</span>
+                  <span class="px-2.5 py-1 bg-secondary-container text-on-secondary-container border border-secondary-fixed/20 rounded text-[10px] font-bold uppercase tracking-wider">
                     {{ $any(product.categorias)?.nombre || 'S/C' }}
                   </span>
                 </div>
@@ -88,34 +82,32 @@
               <!-- Col: Precio -->
               <td class="md:px-6 md:py-4 mb-2 md:mb-0">
                 <div class="flex items-center gap-4 md:block">
-                  <span
-                    class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-20">Precio:</span>
-                  <span class="font-label-bold text-secondary-fixed">${{ product.precio.toFixed(2) }}</span>
+                  <span class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-20">Precio:</span>
+                  <span class="font-display-sm text-secondary-fixed font-bold text-sm md:text-base">${{ product.precio.toFixed(2) }}</span>
                 </div>
               </td>
               <!-- Col: Estado -->
               <td class="md:px-6 md:py-4 mb-4 md:mb-0">
                 <div class="flex items-center gap-4 md:block">
-                  <span
-                    class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-20">Estado:</span>
+                  <span class="md:hidden font-label-bold text-[10px] uppercase text-on-surface-variant w-20">Estado:</span>
                   <div class="flex items-center gap-2">
-                    <span [class]="product.estado === 'activo' ? 'bg-secondary-fixed' : 'bg-on-surface-variant'"
-                      class="w-1.5 h-1.5 rounded-full"></span>
-                    <span class="text-[10px] uppercase font-bold text-on-surface-variant">{{ product.estado }}</span>
+                    <span [class]="product.estado === 'activo' ? 'bg-emerald-500' : 'bg-slate-400'"
+                      class="w-2 h-2 rounded-full"></span>
+                    <span class="text-[11px] uppercase font-bold text-slate-700">{{ product.estado }}</span>
                   </div>
                 </div>
               </td>
               <!-- Col: Acciones -->
-              <td class="md:px-6 md:py-4 border-t border-white/5 md:border-none pt-4 md:pt-0">
-                <div class="flex justify-end md:justify-start gap-4 md:gap-2">
+              <td class="md:px-6 md:py-4 border-t border-outline-variant md:border-none pt-4 md:pt-0">
+                <div class="flex justify-end md:justify-start gap-3 md:gap-2">
                   <button (click)="openModal(product)"
-                    class="flex items-center gap-2 md:block px-4 py-2 md:p-2 bg-white/5 md:bg-transparent hover:bg-secondary-fixed/10 text-on-surface-variant hover:text-secondary-fixed transition-all rounded">
-                    <span class="material-symbols-outlined text-sm">edit</span>
+                    class="flex items-center gap-1.5 px-3 py-1.5 md:p-2 bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-secondary-fixed transition-all rounded">
+                    <span class="material-symbols-outlined text-base">edit</span>
                     <span class="md:hidden text-[10px] font-bold uppercase">Editar</span>
                   </button>
                   <button (click)="deleteProduct(product.id)"
-                    class="flex items-center gap-2 md:block px-4 py-2 md:p-2 bg-white/5 md:bg-transparent hover:bg-error/10 text-on-surface-variant hover:text-error transition-all rounded">
-                    <span class="material-symbols-outlined text-sm">delete</span>
+                    class="flex items-center gap-1.5 px-3 py-1.5 md:p-2 bg-slate-100 hover:bg-red-50 text-slate-700 hover:text-error transition-all rounded">
+                    <span class="material-symbols-outlined text-base">delete</span>
                     <span class="md:hidden text-[10px] font-bold uppercase">Eliminar</span>
                   </button>
                 </div>
@@ -134,62 +126,94 @@
        ==================================================================== -->
   @if (showModal()) {
   <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-    <div (click)="closeModal()" class="absolute inset-0 bg-background/80 backdrop-blur-sm"></div>
-    <div
-      class="relative glass-panel w-full max-w-2xl border border-white/20 animate-in fade-in zoom-in duration-300 max-h-[90vh] overflow-y-auto">
-      <header
-        class="p-4 md:p-6 border-b border-white/10 flex justify-between items-center sticky top-0 bg-surface-container-low z-20">
+    <div (click)="closeModal()" class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-300"></div>
+    <div class="relative bg-white border border-outline-variant shadow-2xl rounded-2xl animate-in zoom-in-95 duration-300 max-h-[90vh] overflow-y-auto w-full max-w-2xl">
+      <header class="p-4 md:p-6 border-b border-outline-variant flex justify-between items-center sticky top-0 bg-white z-20">
         <h2 class="font-display-sm text-[20px] md:text-headline-lg text-secondary uppercase italic">
-          {{ isEditing() ? 'Editar_Producto' : 'Nuevo_Producto' }}
+          {{ isEditing() ? 'Editar Producto' : 'Nuevo Producto' }}
         </h2>
-        <button (click)="closeModal()" class="material-symbols-outlined hover:text-secondary-fixed">close</button>
+        <button (click)="closeModal()" class="material-symbols-outlined text-slate-400 hover:text-secondary">close</button>
       </header>
 
       <form (submit)="$event.preventDefault(); saveProduct()" class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Campo: Nombre -->
         <div class="space-y-1">
-          <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Nombre del Producto</label>
+          <label class="font-label-bold text-xs uppercase text-slate-700">Nombre del Producto</label>
           <input [(ngModel)]="currentProduct().nombre" name="nombre"
-            class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all"
+            class="w-full bg-white border border-outline-variant p-2.5 text-sm text-secondary focus:border-secondary-fixed outline-none transition-all rounded"
             type="text" required>
         </div>
 
         <!-- Campo: Precio -->
         <div class="space-y-1">
-          <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Precio (USD)</label>
+          <label class="font-label-bold text-xs uppercase text-slate-700">Precio (USD)</label>
           <input [(ngModel)]="currentProduct().precio" name="precio"
-            class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all"
+            class="w-full bg-white border border-outline-variant p-2.5 text-sm text-secondary focus:border-secondary-fixed outline-none transition-all rounded"
             type="number" step="0.01" required>
         </div>
 
         <!-- Campo: Descripción (Full Width) -->
         <div class="md:col-span-2 space-y-1">
-          <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Descripción</label>
+          <label class="font-label-bold text-xs uppercase text-slate-700">Descripción</label>
           <textarea [(ngModel)]="currentProduct().descripcion" name="descripcion" rows="3"
-            class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all resize-none"></textarea>
+            class="w-full bg-white border border-outline-variant p-2.5 text-sm text-secondary focus:border-secondary-fixed outline-none transition-all resize-none rounded"></textarea>
         </div>
 
-        <!-- Campo: Imagen URL -->
-        <!-- <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">URL de la Imagen</label>
-            <input [(ngModel)]="currentProduct().imagen_url" name="imagen_url" class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all" type="text">
-          </div> -->
-        <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">
-          Imagen del Producto
-        </label>
+        <!-- Campo: Imagen File -->
+        <div class="md:col-span-2 space-y-1">
+          <label class="font-label-bold text-xs uppercase text-slate-700">
+            Imagen del Producto
+          </label>
+          <input type="file" accept="image/*" (change)="onImageSelected($event)"
+            class="w-full bg-slate-50 border border-outline-variant p-2.5 text-sm text-slate-700 rounded file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-secondary-fixed file:text-white hover:file:bg-secondary-fixed-dim">
 
-        <input type="file" accept="image/*" (change)="onImageSelected($event)"
-          class="w-full bg-surface-container border border-white/10 p-3 text-sm">
+          @if (currentProduct().imagen_url) {
+          <img [src]="currentProduct().imagen_url" class="w-24 h-24 object-cover mt-3 rounded-md border border-outline-variant shadow-sm">
+          }
+        </div>
 
-        @if (currentProduct().imagen_url) {
-        <img [src]="currentProduct().imagen_url" class="w-24 h-24 object-cover mt-3 rounded border border-white/10">
-        }
+        <!-- Campo: Galería de Imágenes Secundarias (Ángulos / Detalles) -->
+        <div class="md:col-span-2 space-y-2 border-t border-outline-variant pt-3">
+          <div class="flex justify-between items-center">
+            <label class="font-label-bold text-xs uppercase text-slate-700">
+              Imágenes Adicionales / Galería (Ángulos, suela, detalles)
+            </label>
+            <span class="text-[11px] text-slate-500 font-medium">
+              {{ (currentProduct().imagenes || []).length }} fotos añadidas
+            </span>
+          </div>
+
+          <input type="file" multiple accept="image/*" (change)="onSecondaryImagesSelected($event)"
+            class="w-full bg-slate-50 border border-outline-variant p-2.5 text-sm text-slate-700 rounded file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-slate-700 file:text-white hover:file:bg-slate-800 cursor-pointer">
+
+          @if (uploadingSecondary()) {
+            <div class="flex items-center gap-2 text-xs text-secondary-fixed py-1">
+              <div class="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-secondary-fixed"></div>
+              <span>Subiendo imágenes adicionales a Supabase...</span>
+            </div>
+          }
+
+          @if ((currentProduct().imagenes || []).length > 0) {
+            <div class="flex flex-wrap gap-3 mt-2 p-3 bg-slate-50 rounded-lg border border-outline-variant">
+              @for (img of (currentProduct().imagenes || []); track $index) {
+                <div class="relative group w-20 h-20 rounded-md overflow-hidden border border-outline-variant bg-white shadow-sm flex-shrink-0">
+                  <img [src]="img" class="w-full h-full object-cover">
+                  <button type="button" (click)="removeSecondaryImage($index)" 
+                          class="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 opacity-90 hover:opacity-100 hover:scale-110 transition-all shadow-md"
+                          title="Eliminar foto">
+                    <span class="material-symbols-outlined text-[14px] block leading-none">close</span>
+                  </button>
+                </div>
+              }
+            </div>
+          }
+        </div>
 
         <!-- Campo: Categoría -->
         <div class="space-y-1">
-          <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Categoría</label>
+          <label class="font-label-bold text-xs uppercase text-slate-700">Categoría</label>
           <select [(ngModel)]="currentProduct().categoria_id" name="categoria_id"
-            class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all appearance-none">
+            class="w-full bg-white border border-outline-variant p-2.5 text-sm text-secondary focus:border-secondary-fixed outline-none transition-all rounded">
             @for (cat of categories(); track cat.id) {
             <option [value]="cat.id">{{ cat.nombre }}</option>
             }
@@ -198,29 +222,32 @@
 
         <!-- Campo: Estado -->
         <div class="space-y-1">
-          <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Estado</label>
+          <label class="font-label-bold text-xs uppercase text-slate-700">Estado</label>
           <select [(ngModel)]="currentProduct().estado" name="estado"
-            class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none transition-all appearance-none">
+            class="w-full bg-white border border-outline-variant p-2.5 text-sm text-secondary focus:border-secondary-fixed outline-none transition-all rounded">
             <option value="activo">Activo</option>
             <option value="inactivo">Inactivo</option>
           </select>
         </div>
 
-        <!-- Campo: Destacado (Checkbox Custom) -->
-        <div class="flex items-center gap-3 py-2">
+        <!-- Campo: Destacado -->
+        <div class="md:col-span-2 flex items-center gap-3 py-2">
           <input [(ngModel)]="currentProduct().destacado" name="destacado" id="destacado-check"
-            class="w-4 h-4 accent-secondary-fixed" type="checkbox">
+            class="w-4 h-4 accent-secondary-fixed cursor-pointer" type="checkbox">
           <label for="destacado-check"
-            class="font-label-bold text-[10px] uppercase text-on-surface-variant cursor-pointer">Producto
-            Destacado</label>
+            class="font-label-bold text-xs uppercase text-slate-700 cursor-pointer">
+            Marcar como Producto Destacado
+          </label>
         </div>
 
         <!-- Acciones del Modal -->
-        <div class="md:col-span-2 pt-4 flex gap-2">
+        <div class="md:col-span-2 pt-4 flex gap-3 border-t border-outline-variant">
           <button (click)="closeModal()" type="button"
-            class="flex-1 py-3 border border-white/10 hover:bg-white/5 font-label-bold uppercase text-xs transition-all">Cancelar</button>
+            class="flex-1 py-3 border border-outline-variant bg-white text-secondary hover:bg-slate-50 font-label-bold uppercase text-xs transition-all rounded">
+            Cancelar
+          </button>
           <button type="submit"
-            class="flex-1 py-3 bg-secondary-fixed text-on-secondary-fixed font-label-bold uppercase text-xs transition-all neon-glow">
+            class="flex-1 py-3 bg-secondary-fixed text-white hover:bg-secondary-fixed-dim font-label-bold uppercase text-xs transition-all shadow-sm rounded">
             {{ isEditing() ? 'Actualizar Producto' : 'Crear Producto' }}
           </button>
         </div>
@@ -234,28 +261,24 @@
        ==================================================================== -->
   @if (showCategoryModal()) {
   <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-    <div (click)="closeCategoryModal()" class="absolute inset-0 bg-background/80 backdrop-blur-sm"></div>
-    <div
-      class="relative glass-panel w-full max-w-md border border-white/20 animate-in fade-in slide-in-from-bottom-4 duration-300 max-h-[90vh] overflow-y-auto">
-      <header
-        class="p-4 md:p-6 border-b border-white/10 flex justify-between items-center sticky top-0 bg-surface-container-low z-20">
-        <h2 class="font-display-sm text-[20px] md:text-headline-lg text-secondary uppercase italic">Categorías_Lab</h2>
-        <button (click)="closeCategoryModal()"
-          class="material-symbols-outlined hover:text-secondary-fixed">close</button>
+    <div (click)="closeCategoryModal()" class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-300"></div>
+    <div class="relative bg-white border border-outline-variant shadow-2xl rounded-2xl animate-in zoom-in-95 duration-300 max-h-[90vh] overflow-y-auto w-full max-w-md">
+      <header class="p-4 md:p-6 border-b border-outline-variant flex justify-between items-center sticky top-0 bg-white z-20">
+        <h2 class="font-display-sm text-[20px] md:text-headline-lg text-secondary uppercase italic">Categorías</h2>
+        <button (click)="closeCategoryModal()" class="material-symbols-outlined text-slate-400 hover:text-secondary">close</button>
       </header>
 
       <div class="p-4 md:p-6 space-y-8">
-        <!-- Formulario Nueva Categoría (Stack en móvil) -->
+        <!-- Formulario Nueva Categoría -->
         <div class="space-y-4">
           <div class="space-y-1">
-            <label class="font-label-bold text-[10px] uppercase text-on-surface-variant">Nombre de la Nueva
-              Categoría</label>
+            <label class="font-label-bold text-xs uppercase text-slate-700">Nombre de la Nueva Categoría</label>
             <div class="flex flex-col sm:flex-row gap-2">
               <input [(ngModel)]="newCatName"
-                class="w-full bg-surface-container border border-white/10 p-3 text-sm focus:border-secondary-fixed outline-none"
-                placeholder="Ej: Running, Skate..." type="text">
+                class="w-full bg-white border border-outline-variant p-2.5 text-sm text-secondary focus:border-secondary-fixed outline-none rounded"
+                placeholder="Ej: Running, Urban, Training..." type="text">
               <button (click)="addCategory()" [disabled]="!newCatName()"
-                class="w-full sm:w-auto px-6 py-3 sm:py-0 bg-white text-black font-label-bold uppercase text-[10px] hover:bg-secondary-fixed transition-all disabled:opacity-50 flex-shrink-0">
+                class="w-full sm:w-auto px-5 py-2.5 bg-secondary-fixed text-white font-label-bold uppercase text-xs hover:bg-secondary-fixed-dim transition-all disabled:opacity-50 flex-shrink-0 rounded shadow-sm">
                 Agregar
               </button>
             </div>
@@ -264,16 +287,16 @@
 
         <!-- Lista de Categorías Existentes -->
         <div class="space-y-3">
-          <h3 class="font-label-bold text-[10px] uppercase text-on-surface-variant border-b border-white/10 pb-2">
-            Categorías Existentes</h3>
+          <h3 class="font-label-bold text-xs uppercase text-slate-700 border-b border-outline-variant pb-2">
+            Categorías Existentes
+          </h3>
           <div class="grid grid-cols-1 gap-2">
             @for (cat of categories(); track cat.id) {
-            <div
-              class="flex justify-between items-center p-3 bg-surface-container rounded border border-white/5 group gap-2">
+            <div class="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-outline-variant group gap-2">
               <span class="text-sm font-label-bold text-secondary break-words min-w-0">{{ cat.nombre }}</span>
               <button (click)="deleteCategory(cat.id)"
-                class="text-on-surface-variant hover:text-error opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all flex-shrink-0">
-                <span class="material-symbols-outlined text-sm">delete</span>
+                class="text-slate-400 hover:text-error transition-colors flex-shrink-0">
+                <span class="material-symbols-outlined text-base">delete</span>
               </button>
             </div>
             }

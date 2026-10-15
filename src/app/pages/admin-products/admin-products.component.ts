@@ -44,11 +44,13 @@ export class AdminProductsComponent implements OnInit {
   public newCatDesc = signal('');
 
   // --- Estado del Formulario de Producto ---
+  public uploadingSecondary = signal(false);
   public currentProduct = signal<Partial<Product>>({
     nombre: '',
     descripcion: '',
     precio: 0,
     imagen_url: '',
+    imagenes: [],
     estado: 'activo',
     categoria_id: '',
     destacado: false
@@ -89,7 +91,10 @@ export class AdminProductsComponent implements OnInit {
   public openModal(product?: Product): void {
     if (product) {
       this.isEditing.set(true);
-      this.currentProduct.set({ ...product });
+      this.currentProduct.set({ 
+        ...product,
+        imagenes: product.imagenes && Array.isArray(product.imagenes) ? [...product.imagenes] : []
+      });
     } else {
       this.isEditing.set(false);
       this.currentProduct.set({
@@ -97,6 +102,7 @@ export class AdminProductsComponent implements OnInit {
         descripcion: '',
         precio: 0,
         imagen_url: '',
+        imagenes: [],
         estado: 'activo',
         categoria_id: this.categories()[0]?.id || '',
         destacado: false
@@ -157,17 +163,26 @@ export class AdminProductsComponent implements OnInit {
 
         await this._productService.deleteProduct(id);
 
-        // Eliminar la imagen del storage si el producto tenía una
+        // Eliminar la imagen principal del storage si el producto tenía una
         if (productToDelete && productToDelete.imagen_url) {
-          console.log('El producto tiene imagen. Solicitando eliminación de:', productToDelete.imagen_url);
+          console.log('El producto tiene imagen principal. Solicitando eliminación de:', productToDelete.imagen_url);
           try {
             await this._productService.deleteProductImage(productToDelete.imagen_url);
-            console.log('Imagen eliminada con éxito de Supabase al borrar producto.');
+            console.log('Imagen principal eliminada con éxito de Supabase.');
           } catch (e: any) {
-            alert('El producto se eliminó, pero hubo un error al borrar su imagen de Supabase:\n' + e.message);
+            console.warn('Error al borrar imagen principal de Supabase:', e);
           }
-        } else {
-          console.log('El producto no tiene imagen para eliminar.');
+        }
+
+        // Eliminar las imágenes secundarias de storage
+        if (productToDelete && productToDelete.imagenes?.length) {
+          for (const url of productToDelete.imagenes) {
+            try {
+              await this._productService.deleteProductImage(url);
+            } catch (e) {
+              console.warn('Error al borrar imagen secundaria de Supabase:', e);
+            }
+          }
         }
 
         await this._loadInitialData();
@@ -251,6 +266,56 @@ export class AdminProductsComponent implements OnInit {
 
     } catch (error) {
       console.error('Error subiendo imagen:', error);
+    }
+  }
+
+  /**
+   * Sube múltiples imágenes secundarias a Supabase Storage y las agrega al array del producto.
+   */
+  public async onSecondaryImagesSelected(event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    const files = Array.from(input.files);
+    try {
+      this.uploadingSecondary.set(true);
+      const uploadedUrls = await this._productService.uploadMultipleProductImages(files);
+
+      this.currentProduct.update(product => ({
+        ...product,
+        imagenes: [...(product.imagenes || []), ...uploadedUrls]
+      }));
+
+      // Limpiar input
+      input.value = '';
+    } catch (error) {
+      console.error('Error subiendo imágenes secundarias:', error);
+      alert('Hubo un error al subir las imágenes adicionales.');
+    } finally {
+      this.uploadingSecondary.set(false);
+    }
+  }
+
+  /**
+   * Elimina una imagen secundaria de la galería del producto actual y de Supabase Storage.
+   */
+  public async removeSecondaryImage(index: number): Promise<void> {
+    const currentImgs = this.currentProduct().imagenes || [];
+    const imgUrlToRemove = currentImgs[index];
+
+    const updatedImgs = currentImgs.filter((_, i) => i !== index);
+    this.currentProduct.update(p => ({
+      ...p,
+      imagenes: updatedImgs
+    }));
+
+    if (imgUrlToRemove) {
+      try {
+        await this._productService.deleteProductImage(imgUrlToRemove);
+        console.log('Imagen secundaria eliminada de Storage:', imgUrlToRemove);
+      } catch (err) {
+        console.warn('No se pudo borrar del bucket la imagen secundaria:', err);
+      }
     }
   }
 }
