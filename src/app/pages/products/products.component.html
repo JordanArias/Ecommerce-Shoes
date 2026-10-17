@@ -3,7 +3,8 @@
        HEADER SECCIÓN
        ==================================================================== -->
   <header class="mb-stack-md">
-    <h1 class="font-display-lg text-[28px] sm:text-[40px] md:text-display-lg text-secondary uppercase italic tracking-tight mb-2 leading-tight">
+    <h1
+      class="font-display-lg text-[28px] sm:text-[40px] md:text-display-lg text-secondary uppercase italic tracking-tight mb-2 leading-tight">
       Catálogo Corporativo
     </h1>
     <p class="font-body-lg text-body-sm md:text-body-md text-on-surface-variant max-w-2xl leading-relaxed">
@@ -20,42 +21,43 @@
       <section>
         <h3 class="font-label-bold text-label-bold uppercase text-secondary mb-3">Buscar</h3>
         <div class="relative flex items-center group">
-          <span class="material-symbols-outlined absolute left-3 text-on-surface-variant group-focus-within:text-secondary-fixed transition-colors pointer-events-none" data-icon="search">search</span>
-          <input (input)="onSearchInput($event)" 
-                 [value]="searchQuery()" 
-                 class="w-full bg-white border border-outline-variant pl-10 pr-4 py-2.5 text-label-sm text-secondary placeholder:text-on-surface-variant focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed transition-all outline-none rounded" 
-                 placeholder="Buscar calzado..." 
-                 type="text"/>
+          <span
+            class="material-symbols-outlined absolute left-3 text-on-surface-variant group-focus-within:text-secondary-fixed transition-colors pointer-events-none"
+            data-icon="search">search</span>
+          <input (input)="onSearchInput($event)" [value]="searchQuery()"
+            class="w-full bg-white border border-outline-variant pl-10 pr-4 py-2.5 text-label-sm text-secondary placeholder:text-on-surface-variant focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed transition-all outline-none rounded"
+            placeholder="Buscar calzado..." type="text" />
         </div>
       </section>
 
       <!-- Filtro: Categorías -->
       <section>
         <h3 class="font-label-bold text-label-bold uppercase text-secondary mb-3">Categorías</h3>
-        
+
         <!-- Vista Móvil: Dropdown -->
         <div class="md:hidden">
-          <select [value]="selectedCategory() || ''" (change)="onCategorySelect($event)" class="w-full bg-white border border-outline-variant px-4 py-2.5 text-label-sm text-secondary focus:border-secondary-fixed outline-none appearance-none cursor-pointer rounded">
+          <select [value]="selectedCategory() || ''" (change)="onCategorySelect($event)"
+            class="w-full bg-white border border-outline-variant px-4 py-2.5 text-label-sm text-secondary focus:border-secondary-fixed outline-none appearance-none cursor-pointer rounded">
             <option value="">Todas las Categorías</option>
             @for (cat of categories(); track cat.id) {
-              <option [value]="cat.id" [selected]="selectedCategory() === cat.id">{{ cat.nombre }}</option>
+            <option [value]="cat.id" [selected]="selectedCategory() === cat.id">{{ cat.nombre }}</option>
             }
           </select>
         </div>
 
         <!-- Vista Escritorio: Lista de Botones -->
         <div class="hidden md:flex flex-col gap-2">
-          <button (click)="selectCategory(null)" 
+          <button (click)="selectCategory(null)"
             [class]="!selectedCategory() ? 'bg-secondary-fixed text-white font-bold shadow-sm' : 'bg-white border border-outline-variant text-on-surface-variant hover:border-secondary-fixed hover:text-secondary'"
             class="w-full text-left px-4 py-2.5 text-label-sm font-medium transition-all rounded">
             Todas las Categorías
           </button>
           @for (cat of categories(); track cat.id) {
-            <button (click)="selectCategory(cat.id)"
-              [class]="selectedCategory() === cat.id ? 'bg-secondary-fixed text-white font-bold shadow-sm' : 'bg-white border border-outline-variant text-on-surface-variant hover:border-secondary-fixed hover:text-secondary'"
-              class="w-full text-left px-4 py-2.5 text-label-sm font-medium transition-all rounded">
-              {{ cat.nombre }}
-            </button>
+          <button (click)="selectCategory(cat.id)"
+            [class]="selectedCategory() === cat.id ? 'bg-secondary-fixed text-white font-bold shadow-sm' : 'bg-white border border-outline-variant text-on-surface-variant hover:border-secondary-fixed hover:text-secondary'"
+            class="w-full text-left px-4 py-2.5 text-label-sm font-medium transition-all rounded">
+            {{ cat.nombre }}
+          </button>
           }
         </div>
       </section>
@@ -64,10 +66,11 @@
       <section>
         <h3 class="font-label-bold text-label-bold uppercase text-secondary mb-3">Rango de Precios</h3>
         <div class="space-y-4">
-          <input (input)="onPriceChange($event)" [value]="priceMax()" class="w-full accent-secondary-fixed cursor-pointer" max="1000" min="50" step="10" type="range"/>
+          <input (input)="onPriceChange($event)" [value]="priceMax()"
+            class="w-full accent-secondary-fixed cursor-pointer" max="1000" min="50" step="10" type="range" />
           <div class="flex justify-between font-label-sm text-on-surface-variant">
-            <span>$50</span>
-            <span class="text-secondary-fixed font-bold">${{ priceMax() < 1000 ? priceMax() : '1000+' }}</span>
+            <span>Bs. 50</span>
+            <span class="text-secondary-fixed font-bold">Bs. {{ priceMax() < 1000 ? priceMax() : '1000+' }}</span>
           </div>
         </div>
       </section>
@@ -78,57 +81,71 @@
          ==================================================================== -->
     <section class="flex-grow grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-gutter">
       @if (loading()) {
-        <!-- Spinner central -->
-        <div class="col-span-full flex justify-center py-20">
-          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary-fixed"></div>
-        </div>
+      <!-- Spinner central -->
+      <div class="col-span-full flex justify-center py-20">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary-fixed"></div>
+      </div>
       } @else if (error()) {
-        <!-- Mensaje de error -->
-        <div class="col-span-full text-error text-center py-10">
-          <p>Error cargando productos: {{ error() }}</p>
-        </div>
+      <!-- Mensaje de error -->
+      <div class="col-span-full text-error text-center py-10">
+        <p>Error cargando productos: {{ error() }}</p>
+      </div>
       } @else if (filteredProducts().length === 0) {
-        <!-- Lista vacía -->
-        <div class="col-span-full text-on-surface-variant text-center py-10 bg-white border border-outline-variant rounded-xl p-8">
-          <p>No se encontraron productos que coincidan con los filtros seleccionados.</p>
-        </div>
+      <!-- Lista vacía -->
+      <div
+        class="col-span-full text-on-surface-variant text-center py-10 bg-white border border-outline-variant rounded-xl p-8">
+        <p>No se encontraron productos que coincidan con los filtros seleccionados.</p>
+      </div>
       } @else {
-        <!-- Listado filtrado -->
-        @for (product of filteredProducts(); track product.id) {
-          <div class="group bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-secondary-fixed/50 transition-all duration-300 flex flex-col">
-            <!-- Imagen del producto -->
-            <div (click)="openDetail(product)" class="relative aspect-[4/5] bg-surface-container overflow-hidden cursor-pointer">
-              <img [alt]="product.nombre" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" [src]="product.imagen_url"/>
-              @if (product.destacado) {
-                <div class="absolute top-2 left-2 md:top-3 md:left-3">
-                  <span class="bg-secondary-fixed text-white px-2 md:px-3 py-1 text-[8px] md:text-label-sm font-bold uppercase tracking-wider rounded shadow-sm">Destacado</span>
-                </div>
-              }
-              <!-- Overlay Hover (Solo Desktop) -->
-              <div class="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex items-center justify-center">
-                <span class="bg-white text-secondary px-5 py-2 uppercase font-label-bold text-xs tracking-wider shadow-md rounded translate-y-2 group-hover:translate-y-0 transition-transform duration-300">Ver Detalle</span>
-              </div>
-            </div>
-            
-            <!-- Información del producto -->
-            <div class="p-3 md:p-4 flex flex-col gap-1.5 md:gap-2 bg-white flex-grow">
-              <div class="flex flex-col md:flex-row justify-between items-start gap-1">
-                <div (click)="openDetail(product)" class="min-w-0 flex-grow cursor-pointer group/title">
-                  <span class="font-label-sm text-[10px] text-secondary-fixed font-bold uppercase tracking-wider">{{ $any(product.categorias)?.nombre || 'Categoría' }}</span>
-                  <h3 class="font-headline-lg uppercase tracking-tight text-[13px] md:text-base font-bold leading-tight break-words text-secondary group-hover/title:text-secondary-fixed transition-colors">{{ product.nombre }}</h3>
-                </div>
-                <p class="font-display-sm text-secondary-fixed text-base md:text-lg font-bold whitespace-nowrap ml-1">${{ product.precio.toFixed(2) }}</p>
-              </div>
-              <p class="text-on-surface-variant text-[11px] leading-relaxed line-clamp-2">{{ product.descripcion }}</p>
-              
-              <!-- Acción: Añadir al carrito -->
-              <button (click)="addToCart(product)" class="w-full bg-secondary-fixed hover:bg-secondary-fixed-dim text-white font-label-bold uppercase transition-all shadow-sm rounded flex items-center justify-center gap-2 py-2.5 md:py-3 mt-auto">
-                  <span class="hidden md:inline">Agregar Rápido</span>
-                  <span class="material-symbols-outlined text-[16px] md:text-[18px]">add_shopping_cart</span>
-              </button>
-            </div>
+      <!-- Listado filtrado -->
+      @for (product of filteredProducts(); track product.id) {
+      <div
+        class="group bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-secondary-fixed/50 transition-all duration-300 flex flex-col">
+        <!-- Imagen del producto -->
+        <div (click)="openDetail(product)"
+          class="relative aspect-[4/5] bg-surface-container overflow-hidden cursor-pointer">
+          <img [alt]="product.nombre"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            [src]="product.imagen_url" />
+          @if (product.destacado) {
+          <div class="absolute top-2 left-2 md:top-3 md:left-3">
+            <span
+              class="bg-secondary-fixed text-white px-2 md:px-3 py-1 text-[8px] md:text-label-sm font-bold uppercase tracking-wider rounded shadow-sm">Destacado</span>
           </div>
-        }
+          }
+          <!-- Overlay Hover (Solo Desktop) -->
+          <div
+            class="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex items-center justify-center">
+            <span
+              class="bg-white text-secondary px-5 py-2 uppercase font-label-bold text-xs tracking-wider shadow-md rounded translate-y-2 group-hover:translate-y-0 transition-transform duration-300">Ver
+              Detalle</span>
+          </div>
+        </div>
+
+        <!-- Información del producto -->
+        <div class="p-3 md:p-4 flex flex-col gap-1.5 md:gap-2 bg-white flex-grow">
+          <div class="flex flex-col md:flex-row justify-between items-start gap-1">
+            <div (click)="openDetail(product)" class="min-w-0 flex-grow cursor-pointer group/title">
+              <span class="font-label-sm text-[10px] text-secondary-fixed font-bold uppercase tracking-wider">{{
+                $any(product.categorias)?.nombre || 'Categoría' }}</span>
+              <h3
+                class="font-headline-lg uppercase tracking-tight text-[13px] md:text-base font-bold leading-tight break-words text-secondary group-hover/title:text-secondary-fixed transition-colors">
+                {{ product.nombre }}</h3>
+            </div>
+            <p class="font-display-sm text-secondary-fixed text-base md:text-lg font-bold whitespace-nowrap ml-1">Bs. {{
+              product.precio.toFixed(2) }}</p>
+          </div>
+          <p class="text-on-surface-variant text-[11px] leading-relaxed line-clamp-2">{{ product.descripcion }}</p>
+
+          <!-- Acción: Añadir al carrito -->
+          <button (click)="addToCart(product)"
+            class="w-full bg-secondary-fixed hover:bg-secondary-fixed-dim text-white font-label-bold uppercase transition-all shadow-sm rounded flex items-center justify-center gap-2 py-2.5 md:py-3 mt-auto">
+            <span class="hidden md:inline">Agregar Rápido</span>
+            <span class="material-symbols-outlined text-[16px] md:text-[18px]">add_shopping_cart</span>
+          </button>
+        </div>
+      </div>
+      }
       }
     </section>
   </div>
@@ -138,88 +155,93 @@
      MODAL DE DETALLE DE PRODUCTO (Clean Corporate Design)
      ==================================================================== -->
 @if (showDetailModal() && selectedProduct()) {
-  <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-20">
-    <!-- Backdrop -->
-    <div (click)="closeDetail()" 
-         class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-300"></div>
-    
-    <!-- Modal Content -->
-    <div class="relative bg-white border border-outline-variant shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-10 duration-500 overflow-hidden rounded-2xl flex flex-col md:flex-row max-h-[90vh] w-full max-w-5xl">
-      
-      <!-- Botón Cerrar (Móvil) -->
-      <button (click)="closeDetail()" class="absolute top-4 right-4 z-20 md:hidden bg-white/90 text-slate-800 shadow-md rounded-full p-2 border border-outline-variant">
-        <span class="material-symbols-outlined">close</span>
-      </button>
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-20">
+  <!-- Backdrop -->
+  <div (click)="closeDetail()"
+    class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-300"></div>
 
-      <!-- Imagen del Producto y Galería (Izquierda) -->
-      <div class="w-full md:w-1/2 flex flex-col bg-surface-container border-b md:border-b-0 md:border-r border-outline-variant">
-        <!-- Foto principal activa -->
-        <div class="w-full h-64 sm:h-80 md:h-[400px] relative overflow-hidden bg-slate-100 flex items-center justify-center">
-          <img [alt]="selectedProduct()!.nombre" 
-               class="w-full h-full object-cover transition-all duration-300"
-               [src]="activeModalImage() || selectedProduct()!.imagen_url">
-        </div>
+  <!-- Modal Content -->
+  <div
+    class="relative bg-white border border-outline-variant shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-10 duration-500 overflow-hidden rounded-2xl flex flex-col md:flex-row max-h-[90vh] w-full max-w-5xl">
 
-        <!-- Tira de miniaturas de la galería (si hay más de 1 imagen) -->
-        @if (getAllProductImages(selectedProduct()).length > 1) {
-          <div class="p-3 bg-white border-t border-outline-variant flex items-center gap-2.5 overflow-x-auto no-scrollbar">
-            @for (img of getAllProductImages(selectedProduct()); track $index) {
-              <button type="button" 
-                      (click)="setActiveModalImage(img)"
-                      [class]="(activeModalImage() === img || (!activeModalImage() && $index === 0)) ? 'ring-2 ring-secondary-fixed shadow-sm scale-105' : 'opacity-70 hover:opacity-100 border border-outline-variant'"
-                      class="w-14 h-14 sm:w-16 sm:h-16 rounded-md overflow-hidden flex-shrink-0 transition-all bg-white cursor-pointer">
-                <img [src]="img" class="w-full h-full object-cover">
-              </button>
-            }
-          </div>
-        }
+    <!-- Botón Cerrar (Móvil) -->
+    <button (click)="closeDetail()"
+      class="absolute top-4 right-4 z-20 md:hidden bg-white/90 text-slate-800 shadow-md rounded-full p-2 border border-outline-variant">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+
+    <!-- Imagen del Producto y Galería (Izquierda) -->
+    <div
+      class="w-full md:w-1/2 flex flex-col bg-surface-container border-b md:border-b-0 md:border-r border-outline-variant">
+      <!-- Foto principal activa -->
+      <div
+        class="w-full h-64 sm:h-80 md:h-[400px] relative overflow-hidden bg-slate-100 flex items-center justify-center">
+        <img [alt]="selectedProduct()!.nombre" class="w-full h-full object-cover transition-all duration-300"
+          [src]="activeModalImage() || selectedProduct()!.imagen_url">
       </div>
 
-      <!-- Información (Derecha) -->
-      <div class="w-full md:w-1/2 p-6 md:p-12 overflow-y-auto flex flex-col bg-white">
-        <div class="mb-auto">
-          <div class="flex justify-between items-start mb-4">
-            <span class="px-3 py-1 bg-secondary-container text-on-secondary-container border border-secondary-fixed/20 font-label-bold text-[10px] uppercase tracking-widest rounded-md">
-              {{ $any(selectedProduct()!.categorias)?.nombre || 'Categoría' }}
-            </span>
-            <button (click)="closeDetail()" class="hidden md:block text-on-surface-variant hover:text-secondary transition-colors">
-              <span class="material-symbols-outlined">close</span>
-            </button>
-          </div>
+      <!-- Tira de miniaturas de la galería (si hay más de 1 imagen) -->
+      @if (getAllProductImages(selectedProduct()).length > 1) {
+      <div class="p-3 bg-white border-t border-outline-variant flex items-center gap-2.5 overflow-x-auto no-scrollbar">
+        @for (img of getAllProductImages(selectedProduct()); track $index) {
+        <button type="button" (click)="setActiveModalImage(img)"
+          [class]="(activeModalImage() === img || (!activeModalImage() && $index === 0)) ? 'ring-2 ring-secondary-fixed shadow-sm scale-105' : 'opacity-70 hover:opacity-100 border border-outline-variant'"
+          class="w-14 h-14 sm:w-16 sm:h-16 rounded-md overflow-hidden flex-shrink-0 transition-all bg-white cursor-pointer">
+          <img [src]="img" class="w-full h-full object-cover">
+        </button>
+        }
+      </div>
+      }
+    </div>
 
-          <h2 class="font-display-lg text-[22px] sm:text-[28px] md:text-display-sm text-secondary uppercase italic leading-tight mb-2 tracking-tight">
-            {{ selectedProduct()!.nombre }}
-          </h2>
-
-          <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4">
-            <span class="font-display-sm text-[26px] sm:text-display-sm text-secondary-fixed leading-none font-bold">
-              ${{ selectedProduct()!.precio.toFixed(2) }}
-            </span>
-            <div class="hidden sm:block h-4 w-px bg-slate-200"></div>
-            <span class="text-on-surface-variant font-label-bold text-[11px] uppercase tracking-wider">
-              En Stock / Calidad Garantizada
-            </span>
-          </div>
-
-          <div class="space-y-6">
-            <div>
-              <h4 class="font-label-bold text-xs uppercase text-secondary mb-2 tracking-wider">Descripción</h4>
-              <p class="text-on-surface-variant text-sm md:text-base leading-relaxed whitespace-pre-line">
-                {{ selectedProduct()!.descripcion }}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Acciones Inferiores -->
-        <div class="pt-8 mt-auto border-t border-outline-variant">
-          <button (click)="addToCart(selectedProduct()!); closeDetail()" 
-                  class="w-full bg-secondary-fixed text-white font-label-bold text-label-bold uppercase py-4 rounded transition-all shadow-md hover:bg-secondary-fixed-dim flex items-center justify-center gap-3 active:scale-95">
-            <span class="material-symbols-outlined">shopping_cart</span>
-            Añadir al Carrito
+    <!-- Información (Derecha) -->
+    <div class="w-full md:w-1/2 p-6 md:p-12 overflow-y-auto flex flex-col bg-white">
+      <div class="mb-auto">
+        <div class="flex justify-between items-start mb-4">
+          <span
+            class="px-3 py-1 bg-secondary-container text-on-secondary-container border border-secondary-fixed/20 font-label-bold text-[10px] uppercase tracking-widest rounded-md">
+            {{ $any(selectedProduct()!.categorias)?.nombre || 'Categoría' }}
+          </span>
+          <button (click)="closeDetail()"
+            class="hidden md:block text-on-surface-variant hover:text-secondary transition-colors">
+            <span class="material-symbols-outlined">close</span>
           </button>
         </div>
+
+        <h2
+          class="font-display-lg text-[22px] sm:text-[28px] md:text-display-sm text-secondary uppercase italic leading-tight mb-2 tracking-tight">
+          {{ selectedProduct()!.nombre }}
+        </h2>
+
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4">
+          <span class="font-display-sm text-[26px] sm:text-display-sm text-secondary-fixed leading-none font-bold">
+            Bs. {{ selectedProduct()!.precio.toFixed(2) }}
+          </span>
+          <div class="hidden sm:block h-4 w-px bg-slate-200"></div>
+          <span class="text-on-surface-variant font-label-bold text-[11px] uppercase tracking-wider">
+            En Stock / Calidad Garantizada
+          </span>
+        </div>
+
+        <div class="space-y-6">
+          <div>
+            <h4 class="font-label-bold text-xs uppercase text-secondary mb-2 tracking-wider">Descripción</h4>
+            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed whitespace-pre-line">
+              {{ selectedProduct()!.descripcion }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acciones Inferiores -->
+      <div class="pt-8 mt-auto border-t border-outline-variant">
+        <button (click)="addToCart(selectedProduct()!); closeDetail()"
+          class="w-full bg-secondary-fixed text-white font-label-bold text-label-bold uppercase py-4 rounded transition-all shadow-md hover:bg-secondary-fixed-dim flex items-center justify-center gap-3 active:scale-95">
+          <span class="material-symbols-outlined">shopping_cart</span>
+          Añadir al Carrito
+        </button>
       </div>
     </div>
   </div>
+</div>
 }

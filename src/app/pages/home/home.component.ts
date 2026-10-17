@@ -129,29 +129,24 @@ export class HomeComponent implements OnInit {
 
       this.featuredProducts.set(featured);
 
-      // Imágenes de respaldo en caso de que alguna categoría no tenga productos registrados aún
-      const fallbackImages = [
-        'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=800&q=80',
-        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
-        'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80',
-        'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80'
-      ];
-
       // Mapear cada categoría con su imagen de producto real del inventario
-      const mappedCategories: CategoryWithImage[] = categoriesData.map((cat, index) => {
-        const catProducts = allProducts.filter(p => p.categoria_id === cat.id);
-        const repImage = catProducts.find(p => p.destacado)?.imagen_url 
-          || catProducts[0]?.imagen_url 
-          || fallbackImages[index % fallbackImages.length];
+      // y mostrar únicamente aquellas que tengan al menos 1 producto registrado
+      const mappedCategories: CategoryWithImage[] = categoriesData
+        .map(cat => {
+          const catProducts = allProducts.filter(p => p.categoria_id === cat.id);
+          const repImage = catProducts.find(p => p.destacado)?.imagen_url 
+            || catProducts[0]?.imagen_url 
+            || '';
 
-        return {
-          id: cat.id,
-          nombre: cat.nombre,
-          descripcion: cat.descripcion,
-          imagen_url: repImage,
-          count: catProducts.length
-        };
-      });
+          return {
+            id: cat.id,
+            nombre: cat.nombre,
+            descripcion: cat.descripcion,
+            imagen_url: repImage,
+            count: catProducts.length
+          };
+        })
+        .filter(cat => cat.count > 0);
 
       this.categories.set(mappedCategories);
     } catch (error) {

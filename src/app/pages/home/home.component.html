@@ -5,8 +5,7 @@
   <section
     class="relative h-[65vh] md:h-[85vh] min-h-[500px] w-full overflow-hidden flex items-end pb-8 md:pb-stack-lg">
     <div class="absolute inset-0 z-0">
-      <img class="w-full h-full object-cover object-center" alt="SNEAKER_LAB Hero Image"
-        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsVACbHwj1daNOGlsbaGtxUeh6qHY2YexnMDLGJwbD1RHjLXCVMbkYd4xQ3XDmfh2zHEv_g6VnzyCYtnLNjs5YWmQQzdgsZ_UzUjRnxbWm9EIa2RksQGKQWgaTa3ViBwbH6kJKjRl_GdW7Kqn7-8KG4yZQqtM5ire2pLy_6dmy4vMBSz8XPg061EytKwNty-yJqGwPuZfHk1SJjtbod3NfrIEAuTG4IghdhH80TQJvckeRjYCn8cIr4Gt80enyIM-gl6So5SBEZwE">
+      <img class="w-full h-full object-cover object-center" alt="SNEAKER_LAB Hero Image" src="/assets/shoes_fondo.jpg">
       <div class="absolute inset-0 hero-gradient"></div>
     </div>
 
@@ -175,7 +174,7 @@
               {{ product.nombre }}</h4>
             <p class="text-on-surface-variant text-[11px] md:text-xs leading-relaxed line-clamp-2">{{
               product.descripcion }}</p>
-            <p class="font-display-sm text-secondary-fixed text-base md:text-lg font-bold mt-auto pt-2">${{
+            <p class="font-display-sm text-secondary-fixed text-base md:text-lg font-bold mt-auto pt-2">Bs.{{
               product.precio.toFixed(2) }}</p>
           </div>
         </div>
@@ -280,7 +279,7 @@
 
         <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4">
           <span class="font-display-sm text-[26px] sm:text-display-sm text-secondary-fixed leading-none font-bold">
-            ${{ selectedProduct()!.precio.toFixed(2) }}
+            Bs. {{ selectedProduct()!.precio.toFixed(2) }}
           </span>
           <div class="hidden sm:block h-4 w-px bg-slate-200"></div>
           <span class="text-on-surface-variant font-label-bold text-[11px] uppercase tracking-wider">
