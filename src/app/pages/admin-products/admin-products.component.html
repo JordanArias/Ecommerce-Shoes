@@ -26,6 +26,53 @@
     </header>
 
     <!-- ====================================================================
+         BARRA DE FILTROS Y BÚSQUEDA
+         ==================================================================== -->
+    <div class="bg-white border border-outline-variant rounded-xl p-4 mb-4 shadow-sm flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+      <div class="flex flex-col sm:flex-row gap-3 flex-grow max-w-2xl">
+        <!-- Búsqueda por Nombre -->
+        <div class="relative flex-grow">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg pointer-events-none">search</span>
+          <input [ngModel]="searchFilter()"
+                 (ngModelChange)="searchFilter.set($event)"
+                 type="text"
+                 placeholder="Buscar por nombre o descripción..."
+                 class="w-full pl-9 pr-8 py-2 text-sm bg-slate-50 border border-outline-variant rounded-lg text-secondary focus:bg-white focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed outline-none transition-all">
+          @if (searchFilter()) {
+            <button (click)="searchFilter.set('')" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+              <span class="material-symbols-outlined text-base">close</span>
+            </button>
+          }
+        </div>
+
+        <!-- Filtro por Categoría -->
+        <div class="relative sm:w-64">
+          <select [ngModel]="categoryFilter()"
+                  (ngModelChange)="categoryFilter.set($event)"
+                  class="w-full px-3 py-2 text-sm bg-slate-50 border border-outline-variant rounded-lg text-secondary focus:bg-white focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed outline-none transition-all cursor-pointer">
+            <option value="">Todas las Categorías</option>
+            @for (cat of categories(); track cat.id) {
+              <option [value]="cat.id">{{ cat.nombre }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <!-- Conteo y Reset -->
+      <div class="flex items-center justify-between sm:justify-end gap-3 text-xs text-on-surface-variant pt-2 md:pt-0 border-t md:border-t-0 border-outline-variant">
+        <span>
+          Mostrando <strong class="text-secondary">{{ filteredProducts().length }}</strong> de <strong class="text-secondary">{{ products().length }}</strong>
+        </span>
+        @if (searchFilter() || categoryFilter()) {
+          <button (click)="resetFilters()" class="text-secondary-fixed hover:text-secondary-fixed-dim font-bold flex items-center gap-1 transition-colors">
+            <span class="material-symbols-outlined text-sm">filter_alt_off</span>
+            Limpiar
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- ====================================================================
          CONTENIDO PRINCIPAL (TABLA DE PRODUCTOS)
          ==================================================================== -->
     <section class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
@@ -48,8 +95,24 @@
                 <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary-fixed mx-auto"></div>
               </td>
             </tr>
+            } @else if (filteredProducts().length === 0) {
+            <tr class="block md:table-row">
+              <td class="px-6 py-12 text-center text-on-surface-variant block md:table-cell" colspan="6">
+                <div class="flex flex-col items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-4xl text-slate-300">search_off</span>
+                  <p class="font-semibold text-slate-700 text-sm">No se encontraron productos coincidentes</p>
+                  <p class="text-xs text-on-surface-variant">Prueba ajustando el término de búsqueda o cambiando la categoría seleccionada.</p>
+                  @if (searchFilter() || categoryFilter()) {
+                    <button (click)="resetFilters()" class="mt-2 px-4 py-1.5 text-xs bg-slate-100 hover:bg-slate-200 text-secondary-fixed font-bold rounded transition-colors inline-flex items-center gap-1">
+                      <span class="material-symbols-outlined text-sm">filter_alt_off</span>
+                      Limpiar filtros
+                    </button>
+                  }
+                </div>
+              </td>
+            </tr>
             } @else {
-            @for (product of products(); track product.id) {
+            @for (product of filteredProducts(); track product.id) {
             <tr class="hover:bg-slate-50/80 transition-colors group flex flex-col md:table-row border-b border-outline-variant md:border-none p-4 md:p-0">
               <!-- Col: Imagen -->
               <td class="md:px-6 md:py-4 mb-3 md:mb-0">

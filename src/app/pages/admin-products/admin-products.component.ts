@@ -1,14 +1,13 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 
 // Core
 import { ProductService } from '../../core/services/product.service';
 import { CategoryService } from '../../core/services/category.service';
 import { Product, Category } from '../../core/models/product.model';
-
 import { SupabaseService } from '../../core/services/supabase.service';
+
 /**
  * Componente de administración de productos.
  * Gestiona el inventario, permitiendo CRUD de productos y gestión de categorías.
@@ -16,7 +15,7 @@ import { SupabaseService } from '../../core/services/supabase.service';
 @Component({
   selector: 'app-admin-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, FormsModule],
   templateUrl: './admin-products.component.html',
   styleUrl: './admin-products.component.css',
 })
@@ -30,6 +29,40 @@ export class AdminProductsComponent implements OnInit {
   public products = signal<Product[]>([]);
   public categories = signal<Category[]>([]);
   public loading = signal(true);
+
+  // --- Estado de Filtros ---
+  public searchFilter = signal('');
+  public categoryFilter = signal('');
+
+  /**
+   * Signal computado que filtra los productos según el nombre buscado y la categoría seleccionada.
+   */
+  public filteredProducts = computed(() => {
+    let result = this.products();
+    const query = this.searchFilter().toLowerCase().trim();
+    const catId = this.categoryFilter();
+
+    if (query) {
+      result = result.filter(p =>
+        p.nombre.toLowerCase().includes(query) ||
+        (p.descripcion && p.descripcion.toLowerCase().includes(query))
+      );
+    }
+
+    if (catId) {
+      result = result.filter(p => p.categoria_id === catId);
+    }
+
+    return result;
+  });
+
+  /**
+   * Restablece los filtros de búsqueda y categoría.
+   */
+  public resetFilters(): void {
+    this.searchFilter.set('');
+    this.categoryFilter.set('');
+  }
 
   // --- Estado de Modales ---
   /** Controla la visibilidad del modal de Producto */
